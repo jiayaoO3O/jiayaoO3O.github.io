@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Checkout Blog
         uses: actions/checkout@v2
+        with: 
+          ref: Blog
       - name: Install Node.js 12
         uses: actions/setup-node@v1
         with:
