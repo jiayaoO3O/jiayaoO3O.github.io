@@ -1,17 +1,29 @@
-name: CI
-
+name: Hexo Publish
 on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      - name: Checkout Blog
+        uses: actions/checkout@v2
+      - name: Install Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Git Config
+        env:
+          ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name 'jiayaoO3O'
+          git config --global user.email 'jiayao3.14@outlook.com'
+      - name: Install Hexo
+        run: |
+          npm i -g hexo-cli 
+          npm i
+      - name: Deploy Hexo
+        run: |
+          hexo g -d
