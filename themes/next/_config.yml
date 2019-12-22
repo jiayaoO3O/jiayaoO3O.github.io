@@ -213,9 +213,9 @@ links:
 toc:
   enable: true
   # Automatically add list number to toc.
-  number: false
+  number: true
   # If true, all words will placed on next lines if header width longer then sidebar width.
-  wrap: false
+  wrap: true
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
   expand_all: false
   # Maximum heading depth of generated toc.
