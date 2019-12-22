@@ -211,7 +211,7 @@ links:
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).
 toc:
-  enable: true
+  enable: false
   # Automatically add list number to toc.
   number: false
   # If true, all words will placed on next lines if header width longer then sidebar width.
