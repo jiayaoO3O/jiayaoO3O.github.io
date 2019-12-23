@@ -16,6 +16,7 @@ jobs:
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
         run: |
+          export TZ='Asia/Shanghai'
           mkdir -p ~/.ssh/
           echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
@@ -24,7 +25,7 @@ jobs:
           git config --global user.email 'jiayao3.14@outlook.com'
       - name: Install Hexo
         run: |
-          npm i -g hexo-cli 
+          npm i -g hexo-cli
           npm i
       - name: Deploy Hexo
         run: |
