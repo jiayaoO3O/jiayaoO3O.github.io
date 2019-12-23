@@ -1,6 +1,6 @@
 GitHub Page博客源文件,通过GitHub Action自动发布推送
 
-[![badge](https://github.com/jiayaoO3O/jiayaoO3O.github.io/workflows/Hexo%20Publish/badge.svg)](https://github.com/jiayaoO3O/jiayaoO3O.github.io/actions)
+[![badge.svg](https://github.com/jiayaoO3O/jiayaoO3O.github.io/workflows/Hexo%20Publish/badge.svg)](https://github.com/jiayaoO3O/jiayaoO3O.github.io/actions)
 
 ## 原理
 
