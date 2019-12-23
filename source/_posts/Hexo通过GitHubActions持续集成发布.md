@@ -11,6 +11,8 @@ GitHub Page博客源文件,通过GitHub Action自动发布推送
 
 简单来说,原理就是将所有的hexo文章文件放到当前的**Blog**分支,然后在**Blog**分支添加一个Action,每当这个分支接收到更新,就触发一次Action,在Github提供的免费服务器上安装node.js,再安装hexo,然后生成静态页面,推送到**jiayaoO3O.github.io**的**master**分支.
 
+<!-- more -->
+
 ## 步骤
 
 ### 创建一对公钥与私钥
