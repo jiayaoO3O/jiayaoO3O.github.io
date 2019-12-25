@@ -25,9 +25,8 @@ jobs:
           git config --global user.email 'jiayao3.14@outlook.com'
       - name: Install Hexo
         run: |
-          npm i -g hexo-cli
+          npm i -g hexo-cli@4.2.0
           npm i
-          npm update hexo-cli
           hexo version
       - name: Deploy Hexo
         run: |
