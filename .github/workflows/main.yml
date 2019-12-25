@@ -22,13 +22,11 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
+          date
       - name: Set Timezone
         env:
           TZ: 'Asia/Shanghai'
         run: |
-          date
-          sudo ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-          sudo apt-get install -y tzdata
           date
       - name: Install Hexo
         run: |
