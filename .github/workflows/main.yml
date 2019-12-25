@@ -35,4 +35,4 @@ jobs:
           hexo version
       - name: Deploy Hexo
         run: |
-          hexo g -d
+          # hexo g -d
