@@ -28,6 +28,7 @@ jobs:
           npm i -g hexo-cli
           npm i
           hexo version
+          ls ./node_modules
       - name: Deploy Hexo
         run: |
           # hexo g -d
