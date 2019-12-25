@@ -1,5 +1,5 @@
 ---
-title: Hexo通过GitHubActions持续集成发布
+title: Hexo通过GitHub Actions持续集成发布
 date: 2019-12-21 17:06:56
 tags: [GitHub Pages,Actions,Hexo]
 categories: 技术
