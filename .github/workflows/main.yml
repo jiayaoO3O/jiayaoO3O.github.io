@@ -30,6 +30,6 @@ jobs:
       - name: Deploy Hexo
         run: |
           # hexo g -d
-          hexo init
-          cat _config.yml
-          cat package.json
+          hexo init ./test
+          cat ./test/_config.yml
+          cat ./test/package.json
