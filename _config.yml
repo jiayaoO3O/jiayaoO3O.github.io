@@ -9,7 +9,7 @@ description: '实习摸鱼,随缘更新'
 keywords:
 author: jiayao
 language: zh-CN
-timezone: 'Asia/Shanghai'
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
