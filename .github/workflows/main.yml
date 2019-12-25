@@ -24,8 +24,8 @@ jobs:
           git config --global user.email 'jiayao3.14@outlook.com'
       - name: Set Timezone
         run: |
-          ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-          apt-get install -y tzdata
+          sudo ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo apt-get install -y tzdata
           date
       - name: Install Hexo
         run: |
