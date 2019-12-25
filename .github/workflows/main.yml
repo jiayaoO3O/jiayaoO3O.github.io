@@ -15,7 +15,7 @@ jobs:
       - name: Set Git Config
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
-          TZ: Asia/Shanghai
+          # TZ: Asia/Shanghai
         run: |
           date
           mkdir -p ~/.ssh/
