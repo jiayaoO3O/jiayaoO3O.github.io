@@ -15,19 +15,15 @@ jobs:
       - name: Set Git Config
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
+          TZ: Asia/Shanghai
         run: |
+          date
           mkdir -p ~/.ssh/
           echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
-          date
-      - name: Set Timezone
-        env:
-          TZ: 'Asia/Shanghai'
-        run: |
-          date
       - name: Install Hexo
         run: |
           npm i -g hexo-cli
@@ -35,4 +31,4 @@ jobs:
           hexo version
       - name: Deploy Hexo
         run: |
-          # hexo g -d
+          hexo g -d
