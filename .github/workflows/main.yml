@@ -16,22 +16,22 @@ jobs:
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
         run: |
-          export TZ='Asia/Shanghai'
           mkdir -p ~/.ssh/
           echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
+      - name: Set Timezone
+        run: |
+          ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          apt-get install -y tzdata
+          date
       - name: Install Hexo
         run: |
           npm i -g hexo-cli
           npm i
           hexo version
-          npm ls
       - name: Deploy Hexo
         run: |
-          # hexo g -d
-          hexo init ./test
-          cat ./test/_config.yml
-          cat ./test/package.json
+          hexo g -d
