@@ -27,6 +27,7 @@ jobs:
         run: |
           npm i -g hexo-cli
           npm i
+          npm update hexo-cli
       - name: Deploy Hexo
         run: |
           # hexo g -d
