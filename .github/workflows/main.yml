@@ -11,7 +11,6 @@ jobs:
       - name: Set Git Config
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
-          TZ: Asia/Shanghai
         run: |
           mkdir -p ~/.ssh/
           echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
@@ -27,8 +26,10 @@ jobs:
         run: |
           npm i -g hexo-cli
           npm i
-          date
           hexo version
       - name: Deploy Hexo
+        env:
+          TZ: Asia/Shanghai
         run: |
+          date
           hexo g -d
