@@ -68,13 +68,10 @@ jobs:
         uses: actions/checkout@v2
         with: 
           ref: Blog
-      - name: Install Node.js 12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
       - name: Set Git Config
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
+          TZ: Asia/Shanghai
         run: |
           mkdir -p ~/.ssh/
           echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
@@ -82,10 +79,16 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
+      - name: Install Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
       - name: Install Hexo
         run: |
-          npm i -g hexo-cli 
+          npm i -g hexo-cli
           npm i
+          date
+          hexo version
       - name: Deploy Hexo
         run: |
           hexo g -d
