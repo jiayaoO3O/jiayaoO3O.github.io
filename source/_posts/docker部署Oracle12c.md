@@ -33,6 +33,8 @@ categories: 技术
 
 5. 重新启动计算机.
 
+<!-- more -->
+
 ## 拉取Oracle12c的docker镜像
 
 从此github仓库中拉取Oracle的docker镜像 :
