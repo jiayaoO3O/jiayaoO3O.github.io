@@ -83,7 +83,7 @@ docker run --name oracle12 --restart=always -d -p 8079:8080 -p 1521:1521 -v /my/
 
 将上述的/my/oracle/data更改为你想要保留数据库的本地目录.
 
-启动数据库之后 , 输入下列命令可以查看Oracle 12的容器创建日志 , 如果没有error出现 , 即说明创建成功
+启动数据库之后 , 输入下列命令可以查看Oracle 12的容器创建日志 , 如果没有error出现 , 即说明创建成功.
 
 ```sql
 docker logs -f oracle12
@@ -148,7 +148,9 @@ username: system
 password: oracle
 ```
 
-使用任意可视化数据库管理工具 , 输入上述信息即可成功连接安装sqlplus等工具
+使用任意可视化数据库管理工具 , 输入上述信息即可成功连接安装sqlplus等工具.
+
+## 安装sqlplus等工具
 
 如果本地此时已经不存在Oracle数据库 , 运行sql脚本时需要用到sqlplus等工具,需要单独下载sqlplus等.
 
@@ -172,13 +174,13 @@ password: oracle
 
 若执行指定ip地址和端口的连接命令能够成功 , 例如 :
 
-```
+```shell
 sqlplus user/password@localhost:1521/xe
 ```
 
-但是执行不指定ip地址和端口的连接命令 , 报错ORA-12154: TNS:could not resolve the connect identifier specified
+但是执行不指定ip地址和端口的连接命令 , 报错**ORA-12154: TNS:could not resolve the connect identifier specified** :
 
-```
+```shell
 sqlplus user/password@xe
 ```
 
