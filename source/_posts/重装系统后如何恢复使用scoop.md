@@ -13,7 +13,7 @@ categories: 技术
 
 2. 重装系统之后,将scoop文件夹粘贴回去用户目录
 
-3. 在环境变量设置中,新建一个用户变量,名字为scoop,值为当前scoop文件夹的地址,即:
+3. 在环境变量设置中,新建一个用户变量,名字为SCOOP,值为当前scoop文件夹的地址,即:
 
    ```
    C:\Users\xxxx\scoop
@@ -25,13 +25,13 @@ categories: 技术
    set-executionpolicy remotesigned -s currentuser
    ```
 
-5. 双击用户变量中的path,新建一个路径,填入scoop文件夹下的shims文件夹的地址,即:
+5. 双击用户变量中的path,新建一个路径,填入 :
 
    ```
-   C:\Users\xxxx\scoop\shims
+   %SCOOP%\shims
    ```
 
-6. powershell中运行:
+6. 管理员权限powershell中运行:
 
    ```powershell
    scoop reset *
