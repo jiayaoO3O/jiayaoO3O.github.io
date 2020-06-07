@@ -1,16 +1,10 @@
 # ---------------------------------------------------------------
 # Theme Core Configuration Settings
-# See: https://theme-next.org/docs/theme-settings/
+# See: https://theme-next.js.org/docs/theme-settings/
 # ---------------------------------------------------------------
 
-# If false, merge configs from `_data/next.yml` into default configuration (rewrite).
-# If true, will fully override default configuration by options from `_data/next.yml` (override). Only for NexT settings.
-# And if true, all config from default NexT `_config.yml` must be copied into `next.yml`. Use if you know what you are doing.
-# Useful if you want to comment some options from NexT `_config.yml` by `next.yml` without editing default config.
-override: false
-
 # Console reminder if new version released.
-reminder: true
+reminder: false
 
 # Allow to cache content generation. Introduced in NexT v6.0.0.
 cache:
@@ -22,13 +16,13 @@ minify: true
 # Define custom file paths.
 # Create your custom files in site directory `source/_data` and uncomment needed files below.
 custom_file_path:
-  #head: source/_data/head.swig
-  #header: source/_data/header.swig
-  #sidebar: source/_data/sidebar.swig
-  #postMeta: source/_data/post-meta.swig
-  #postBodyEnd: source/_data/post-body-end.swig
-  #footer: source/_data/footer.swig
-  #bodyEnd: source/_data/body-end.swig
+  #head: source/_data/head.njk
+  #header: source/_data/header.njk
+  #sidebar: source/_data/sidebar.njk
+  #postMeta: source/_data/post-meta.njk
+  #postBodyEnd: source/_data/post-body-end.njk
+  #footer: source/_data/footer.njk
+  #bodyEnd: source/_data/body-end.njk
   #variable: source/_data/variables.styl
   #mixin: source/_data/mixins.styl
   #style: source/_data/styles.styl
@@ -36,7 +30,7 @@ custom_file_path:
 
 # ---------------------------------------------------------------
 # Site Information Settings
-# See: https://theme-next.org/docs/getting-started/
+# See: https://theme-next.js.org/docs/getting-started/
 # ---------------------------------------------------------------
 
 favicon:
@@ -47,34 +41,27 @@ favicon:
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
+# Show multilingual switcher in footer.
+language_switcher: true
+
 footer:
   # Specify the date when the site was setup. If not defined, current year will be used.
   #since: 2015
 
   # Icon between year and copyright info.
   icon:
-    # Icon name in Font Awesome. See: https://fontawesome.com/v4.7.0/icons/
-    # `heart` is recommended with animation in red (#ff0000).
-    name: user
+    # Icon name in Font Awesome. See: https://fontawesome.com/icons
+    name: fa fa-heart
     # If you want to animate the icon, set it to true.
     animated: false
     # Change the color of icon, using Hex Code.
-    color: "#808080"
+    color: "#ff0000"
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
   copyright:
 
-  powered:
-    # Hexo link (Powered by Hexo).
-    enable: false
-    # Version info of Hexo after Hexo link (vX.X.X).
-    version: false
-
-  theme:
-    # Theme & scheme info link (Theme - NexT.scheme).
-    enable: false
-    # Version info of NexT after scheme info (vX.X.X).
-    version: false
+  # Powered by Hexo & NexT
+  powered: false
 
   # Beian ICP and gongan information for Chinese users. See: http://www.beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
@@ -109,6 +96,9 @@ creative_commons:
 #scheme: Pisces
 scheme: Gemini
 
+# Dark Mode
+darkmode: true
+
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -120,14 +110,14 @@ scheme: Gemini
 # When running the site in a subdirectory (e.g. yoursite.com/blog), remove the leading slash from link value (/archives -> archives).
 # External url should start with http:// or https://
 menu:
-  home: / || home
-  tags: /tags/ || tags
-  categories: /categories/ || th
-  archives: /archives/ || archive
-  about: /about/ || user
-  #schedule: /schedule/ || calendar
-  #sitemap: /sitemap.xml || sitemap
-  #commonweal: /404/ || heartbeat
+  home: / || fa fa-home
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  about: /about/ || fa fa-user
+  #schedule: /schedule/ || fa fa-calendar
+  #sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -137,7 +127,7 @@ menu_settings:
 
 # ---------------------------------------------------------------
 # Sidebar Settings
-# See: https://theme-next.org/docs/theme-settings/sidebar
+# See: https://theme-next.js.org/docs/theme-settings/sidebar
 # ---------------------------------------------------------------
 
 sidebar:
@@ -148,7 +138,7 @@ sidebar:
   # Manual define the sidebar width. If commented, will be default for:
   # Muse | Mist: 320
   # Pisces | Gemini: 240
-  width: 256
+  #width: 300
 
   # Sidebar Display (only for Muse | Mist), available values:
   #  - post    expand on posts automatically. Default.
@@ -158,20 +148,20 @@ sidebar:
   display: post
 
   # Sidebar padding in pixels.
-  padding: 16
+  padding: 18
   # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
-  offset: 14
+  offset: 12
   # Enable sidebar on narrow view (only for Muse | Mist).
   onmobile: false
 
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /images/pic.jpg
+  url: #/images/avatar.gif
   # If true, the avatar will be dispalyed in circle.
-  rounded: true
+  rounded: false
   # If true, the avatar will be rotated with the cursor.
-  rotated: true
+  rotated: false
 
 # Posts / Categories / Tags in sidebar.
 site_state: true
@@ -181,17 +171,16 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/jiayaoO3O || github
-  E-Mail: mailto:jiayao3.14@outlook.com || envelope
-  #Weibo: https://weibo.com/yourname || weibo
-  #Google: https://plus.google.com/yourname || google
-  #Twitter: https://twitter.com/yourname || twitter
-  #FB Page: https://www.facebook.com/yourname || facebook
-  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
-  #YouTube: https://youtube.com/yourname || youtube
-  #Instagram: https://instagram.com/yourname || instagram
-  #Skype: skype:yourname?call|chat || skype
-  #RSS: /atom.xml || rss
+  GitHub: https://github.com/jiayaoO3O || fab fa-github
+  E-Mail: jiayao3.14@outlook.com || fa fa-envelope
+  #Weibo: https://weibo.com/yourname || fab fa-weibo
+  #Google: https://plus.google.com/yourname || fab fa-google
+  #Twitter: https://twitter.com/yourname || fab fa-twitter
+  #FB Page: https://www.facebook.com/yourname || fab fa-facebook
+  #StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
+  #YouTube: https://youtube.com/yourname || fab fa-youtube
+  #Instagram: https://instagram.com/yourname || fab fa-instagram
+  #Skype: skype:yourname?call|chat || fab fa-skype
 
 social_icons:
   enable: true
@@ -200,7 +189,7 @@ social_icons:
 
 # Blog rolls
 links_settings:
-  icon: link
+  icon: fa fa-link
   title: Links
   # Available values: block | inline
   layout: block
@@ -227,13 +216,13 @@ chat:
   enable: false
   #service: chatra
   #service: tidio
-  icon: comment # Icon name in Font Awesome, set false to disable icon.
+  icon: fa fa-comment # Icon name in Font Awesome, set false to disable icon.
   text: Chat # Button text, change it as you wish.
 
 
 # ---------------------------------------------------------------
 # Post Settings
-# See: https://theme-next.org/docs/theme-settings/posts
+# See: https://theme-next.js.org/docs/theme-settings/posts
 # ---------------------------------------------------------------
 
 # Automatically excerpt description in homepage as preamble text.
@@ -253,16 +242,14 @@ post_meta:
   categories: true
 
 # Post wordcount display settings
-# Dependencies: https://github.com/theme-next/hexo-symbols-count-time
+# Dependencies: https://github.com/next-theme/hexo-word-counter
 symbols_count_time:
   separated_meta: true
   item_text_post: true
   item_text_total: true
-  awl: 4
-  wpm: 275
 
 # Use icon instead of the symbol # to indicate the tag at the bottom of the post
-tag_icon: true
+tag_icon: false
 
 # Reward (Donate)
 # Front-matter variable (unsupport animation).
@@ -275,7 +262,16 @@ reward_settings:
 reward:
   wechatpay: /images/wechatpay.png
   alipay: /images/alipay.png
+  #paypal: /images/paypal.png
   #bitcoin: /images/bitcoin.png
+
+# Subscribe through Telegram Channel, Twitter, etc.
+# Usage: `Key: permalink || icon` (Font Awesome)
+follow_me:
+  #Twitter: https://twitter.com/username || fab fa-twitter
+  #Telegram: https://t.me/channel_name || fab fa-telegram
+  #WeChat: /images/wechat_channel.jpg || fab fa-weixin
+  #RSS: /atom.xml || fa fa-rss
 
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
@@ -304,17 +300,16 @@ post_navigation: left
 
 # ---------------------------------------------------------------
 # Custom Page Settings
-# See: https://theme-next.org/docs/theme-settings/custom-pages
+# See: https://theme-next.js.org/docs/theme-settings/custom-pages
 # ---------------------------------------------------------------
 
 # TagCloud settings for tags page.
 tagcloud:
-  # All values below are same as default, change them by yourself.
-  min: 8 # Minimun font size in px
+  min: 12 # Minimun font size in px
   max: 40 # Maxium font size in px
-  start: "#ccc" # Start color (hex, rgba, hsla or color keywords)
-  end: "#111" # End color (hex, rgba, hsla or color keywords)
-  amount: 200 # Amount of tags, change it if you have more than 200 tags
+  amount: 200 # Total amount of tags
+  orderby: name # Order of tags
+  order: 1 # Sort order
 
 # Google Calendar
 # Share your recent schedule to others via calendar page.
@@ -345,24 +340,22 @@ mobile_layout_economy: false
 # Android Chrome header panel color ($brand-bg / $headband-bg => $black-deep).
 android_chrome_color: "#222"
 
-# Hide sticky headers and color the menu bar on Safari (iOS / macOS).
-safari_rainbow: false
-
 # Custom Logo (Do not support scheme Mist)
 custom_logo: #/uploads/custom-logo.jpg
 
 codeblock:
   # Code Highlight theme
-  # Available values: normal | night | night eighties | night blue | night bright | solarized | solarized dark | galactic
-  # See: https://github.com/chriskempson/tomorrow-theme
-  highlight_theme: normal
+  # See: https://github.com/highlightjs/highlight.js/tree/master/src/styles
+  theme:
+    light: default
+    dark: dark
   # Add copy button on codeblock
   copy_button:
-    enable: true
+    enable: false
     # Show text copy result.
-    show_result: true
+    show_result: false
     # Available values: default | flat | mac
-    style: flat
+    style:
 
 back2top:
   enable: true
@@ -373,7 +366,7 @@ back2top:
 
 # Reading progress bar
 reading_progress:
-  enable: true
+  enable: false
   # Available values: top | bottom
   position: top
   color: "#37c6c0"
@@ -397,7 +390,7 @@ github_banner:
 
 # ---------------------------------------------------------------
 # Font Settings
-# See: https://theme-next.org/docs/theme-settings/#Fonts-Customization
+# See: https://theme-next.js.org/docs/theme-settings/#Fonts-Customization
 # ---------------------------------------------------------------
 # Find fonts on Google Fonts (https://www.google.com/fonts)
 # All fonts set here will have the following styles:
@@ -411,7 +404,7 @@ github_banner:
 font:
   enable: false
 
-  # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
+  # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
   host:
 
   # Font options:
@@ -455,14 +448,6 @@ font:
 # Disable Baidu transformation on mobile devices.
 disable_baidu_transformation: false
 
-# Set a canonical link tag for your Hexo site.
-# See: https://support.google.com/webmasters/answer/139066
-# Remember to set up your URL in Hexo `_config.yml` (e.g. url: http://yoursite.com)
-canonical: true
-
-# Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
-seo: true
-
 # If true, site-subtitle will be added to index page.
 # Remember to set up your site-subtitle in Hexo `_config.yml` (e.g. subtitle: Subtitle)
 index_with_subtitle: false
@@ -492,7 +477,8 @@ baidu_push: true
 
 # ---------------------------------------------------------------
 # Third Party Plugins & Services Settings
-# See: https://theme-next.org/docs/third-party-services/
+# See: https://theme-next.js.org/docs/third-party-services/
+# More plugins: https://github.com/next-theme/awesome-next
 # You may need to install dependencies or set CDN URLs in `vendors`
 # There are two different CDN providers by default:
 #   - jsDelivr (cdn.jsdelivr.net), works everywhere even in China
@@ -508,7 +494,7 @@ math:
 
   # hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.
   mathjax:
-    enable: fales
+    enable: false
     # See: https://mhchem.github.io/MathJax-mhchem/
     mhchem: false
 
@@ -519,7 +505,7 @@ math:
     copy_tex: false
 
 # Easily enable fast Ajax navigation on your website.
-# Dependencies: https://github.com/theme-next/theme-next-pjax
+# Dependencies: https://github.com/next-theme/pjax
 pjax: true
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
@@ -540,6 +526,7 @@ lazyload: false
 pangu: false
 
 # Quicklink Support
+# Do not enable both `pjax` and `quicklink`.
 # For more information: https://github.com/GoogleChromeLabs/quicklink
 # Front-matter (unsupport home archive).
 quicklink:
@@ -564,7 +551,7 @@ quicklink:
 
 # ---------------------------------------------------------------
 # Comments Settings
-# See: https://theme-next.org/docs/third-party-services/comments
+# See: https://theme-next.js.org/docs/third-party-services/comments
 # ---------------------------------------------------------------
 
 # Multiple Comment System Support
@@ -576,6 +563,8 @@ comments:
   active:
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
+  # Lazyload all comment systems.
+  lazyload: false
   # Modify texts or order for any navs, here are some examples.
   nav:
     #disqus:
@@ -589,7 +578,6 @@ disqus:
   enable: false
   shortname:
   count: true
-  lazyload: false
   #post_meta_order: 0
 
 # DisqusJS
@@ -599,8 +587,7 @@ disqus:
 disqusjs:
   enable: false
   # API Endpoint of Disqus API (https://disqus.com/api/).
-  # Leave api empty if you are able to connect to Disqus API.
-  # Otherwise you need a reverse proxy for Disqus API.
+  # Leave api empty if you are able to connect to Disqus API. Otherwise you need a reverse proxy for it.
   # For example:
   # api: https://disqus.skk.moe/disqus/
   api:
@@ -618,13 +605,14 @@ changyan:
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
 valine:
   enable: false
-  appid: # Your leancloud application appid
-  appkey: # Your leancloud application appkey
-  notify: false # Mail notifier
-  verify: false # Verification code
+  appId: # Your leancloud application appid
+  appKey: # Your leancloud application appkey
   placeholder: Just go go # Comment box placeholder
   avatar: mm # Gravatar style
-  guest_info: nick,mail,link # Custom comment header
+  meta: # Custom comment header
+    - nick
+    - mail
+    - link
   pageSize: 10 # Pagination size
   language: # Language, available values: en, zh-cn
   visitor: false # Article reading statistic
@@ -655,7 +643,7 @@ gitalk:
 
 # ---------------------------------------------------------------
 # Post Widgets & Content Sharing Services
-# See: https://theme-next.org/docs/third-party-services/post-widgets
+# See: https://theme-next.js.org/docs/third-party-services/post-widgets
 # ---------------------------------------------------------------
 
 # Star rating support to each article.
@@ -672,7 +660,7 @@ add_this_id:
 
 # ---------------------------------------------------------------
 # Statistics and Analytics
-# See: https://theme-next.org/docs/third-party-services/statistics-and-analytics
+# See: https://theme-next.js.org/docs/third-party-services/statistics-and-analytics
 # ---------------------------------------------------------------
 
 # Google Analytics
@@ -697,13 +685,14 @@ cnzz_siteid:
 # Do not enable both `valine.visitor` and `leancloud_visitors`.
 leancloud_visitors:
   enable: false
-  app_id: # <app_id>
-  app_key: # <app_key>
+  app_id: # <your app id>
+  app_key: # <your app key>
+  # Required for apps from CN region
+  server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
   security: true
-  betterPerformance: false
 
 # Another tool to show number of visitors to each article.
 # Visit https://console.firebase.google.com/u/0/ to get apiKey and projectId.
@@ -719,16 +708,16 @@ firestore:
 busuanzi_count:
   enable: false
   total_visitors: true
-  total_visitors_icon: user
+  total_visitors_icon: fa fa-user
   total_views: true
-  total_views_icon: eye
+  total_views_icon: fa fa-eye
   post_views: true
-  post_views_icon: eye
+  post_views_icon: fa fa-eye
 
 
 # ---------------------------------------------------------------
 # Search Services
-# See: https://theme-next.org/docs/third-party-services/search-services
+# See: https://theme-next.js.org/docs/third-party-services/search-services
 # ---------------------------------------------------------------
 
 # Algolia Search
@@ -743,7 +732,7 @@ algolia_search:
     hits_stats: "${hits} results found in ${time} ms"
 
 # Local Search
-# Dependencies: https://github.com/theme-next/hexo-generator-searchdb
+# Dependencies: https://github.com/next-theme/hexo-generator-searchdb
 local_search:
   enable: true
   # If auto, trigger search by changing input.
@@ -762,7 +751,7 @@ swiftype_key:
 
 # ---------------------------------------------------------------
 # Chat Services
-# See: https://theme-next.org/docs/third-party-services/chat-services
+# See: https://theme-next.js.org/docs/third-party-services/chat-services
 # ---------------------------------------------------------------
 
 # Chatra Support
@@ -784,7 +773,7 @@ tidio:
 
 # ---------------------------------------------------------------
 # Tags Settings
-# See: https://theme-next.org/docs/tag-plugins/
+# See: https://theme-next.js.org/docs/tag-plugins/
 # ---------------------------------------------------------------
 
 # Note tag (bs-callout)
@@ -806,11 +795,10 @@ tabs:
     tabs: false
     labels: true
 
-# PDF tag, requires two plugins: pdfObject and pdf.js
-# pdfObject will try to load pdf files natively, if failed, pdf.js will be used.
-# The following `cdn` setting is only for pdfObject, because cdn for pdf.js might be blocked by CORS policy.
-# So, you must install the dependency of pdf.js if you want to use pdf tag and make it available to all browsers.
-# See: https://github.com/theme-next/theme-next-pdf
+# PDF tag
+# NexT will try to load pdf files natively, if failed, pdf.js will be used.
+# So, you have to install the dependency of pdf.js if you want to use pdf tag and make it available to all browsers.
+# See: https://github.com/next-theme/theme-next-pdf
 pdf:
   enable: false
   # Default height
@@ -848,7 +836,7 @@ motion:
     sidebar: slideUpIn
 
 # Progress bar in the top during page loading.
-# Dependencies: https://github.com/theme-next/theme-next-pace
+# Dependencies: https://github.com/next-theme/theme-next-pace
 # For more information: https://github.com/HubSpot/pace
 pace:
   enable: false
@@ -858,26 +846,15 @@ pace:
   theme: minimal
 
 # JavaScript 3D library.
-# Dependencies: https://github.com/theme-next/theme-next-three
+# Dependencies: https://github.com/next-theme/theme-next-three
 three:
   enable: false
   three_waves: false
   canvas_lines: false
   canvas_sphere: false
 
-# Canvas-nest
-# Dependencies: https://github.com/theme-next/theme-next-canvas-nest
-# For more information: https://github.com/hustcc/canvas-nest.js
-canvas_nest:
-  enable: false
-  onmobile: true # Display on mobile or not
-  color: "0,0,255" # RGB values, use `,` to separate
-  opacity: 0.5 # The opacity of line: 0~1
-  zIndex: -1 # z-index property of the background
-  count: 99 # The number of lines
-
 # Canvas-ribbon
-# Dependencies: https://github.com/theme-next/theme-next-canvas-ribbon
+# Dependencies: https://github.com/next-theme/theme-next-canvas-ribbon
 # For more information: https://github.com/zproo/canvas-ribbon
 canvas_ribbon:
   enable: false
@@ -889,7 +866,7 @@ canvas_ribbon:
 #! ---------------------------------------------------------------
 #! DO NOT EDIT THE FOLLOWING SETTINGS
 #! UNLESS YOU KNOW WHAT YOU ARE DOING
-#! See: https://theme-next.org/docs/advanced-settings
+#! See: https://theme-next.js.org/docs/advanced-settings
 #! ---------------------------------------------------------------
 
 # Script Vendors. Set a CDN address for the vendor you want to customize.
@@ -903,18 +880,14 @@ vendors:
   # anime: //cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js
   anime:
 
-  # Internal version: 4.7.0
-  # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
-  # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+  # Internal version: 5.13.0
+  # fontawesome: //cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css
+  # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css
   fontawesome:
 
   # MathJax
-  # mathjax: //cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
-  # mathjax: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
-  # mhchem: //cdn.jsdelivr.net/npm/mathjax-mhchem@3
-  # mhchem: //cdnjs.cloudflare.com/ajax/libs/mathjax-mhchem/3.3.0
+  # mathjax: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   mathjax:
-  mhchem:
 
   # KaTeX
   # katex: //cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css
@@ -926,7 +899,7 @@ vendors:
   copy_tex_css:
 
   # Internal version: 0.2.8
-  # pjax: //cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js
+  # pjax: //cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js
   pjax:
 
   # FancyBox
@@ -943,7 +916,7 @@ vendors:
 
   # Lazyload
   # lazyload: //cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js
-  # lazyload: //cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js
+  # lazyload: //cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js
   lazyload:
 
   # Pangu
@@ -963,29 +936,24 @@ vendors:
 
   # Valine
   # valine: //cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js
-  # valine: //cdnjs.cloudflare.com/ajax/libs/valine/1.3.10/Valine.min.js
+  # valine: //cdnjs.cloudflare.com/ajax/libs/valine/1.4.14/Valine.min.js
   valine:
 
   # Gitalk
   # gitalk_js: //cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js
-  # gitalk_css: //cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css
+  # gitalk_css: //cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css
   gitalk_js:
   gitalk_css:
 
   # Algolia Search
-  # algolia_instant_js: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.js
-  # algolia_instant_css: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css
-  algolia_instant_js:
-  algolia_instant_css:
-
-  # PDF
-  # pdfobject: //cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js
-  # pdfobject: //cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js
-  pdfobject:
+  # algolia_search: //cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js
+  # instant_search: //cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js
+  algolia_search:
+  instant_search:
 
   # Mermaid
   # mermaid: //cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js
-  # mermaid: //cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.min.js
+  # mermaid: //cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js
   mermaid:
 
   # Internal version: 1.2.1
@@ -1005,23 +973,17 @@ vendors:
   pace_css:
 
   # Internal version: 1.0.0
-  # three: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js
-  # three_waves: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js
-  # canvas_lines: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/canvas_lines.min.js
-  # canvas_sphere: //cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/canvas_sphere.min.js
+  # three: //cdn.jsdelivr.net/gh/next-theme/theme-next-three@1/three.min.js
+  # three_waves: //cdn.jsdelivr.net/gh/next-theme/theme-next-three@1/three-waves.min.js
+  # canvas_lines: //cdn.jsdelivr.net/gh/next-theme/theme-next-three@1/canvas_lines.min.js
+  # canvas_sphere: //cdn.jsdelivr.net/gh/next-theme/theme-next-three@1/canvas_sphere.min.js
   three:
   three_waves:
   canvas_lines:
   canvas_sphere:
 
   # Internal version: 1.0.0
-  # canvas_nest: //cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js
-  # canvas_nest_nomobile: //cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest-nomobile.min.js
-  canvas_nest:
-  canvas_nest_nomobile:
-
-  # Internal version: 1.0.0
-  # canvas_ribbon: //cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js
+  # canvas_ribbon: //cdn.jsdelivr.net/gh/next-theme/theme-next-canvas-ribbon@1/canvas-ribbon.js
   canvas_ribbon:
 
 # Assets

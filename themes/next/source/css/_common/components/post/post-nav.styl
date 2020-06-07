@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
-  padding-top: 10px;
+  padding: 10px 5px 0;
 }
 
 .post-nav-item {
@@ -15,11 +15,6 @@
     font-size: $font-size-small;
     line-height: 1.6;
     position: relative;
-
-    &:hover {
-      border-bottom: none;
-      color: $link-hover-color;
-    }
 
     &:active {
       top: 2px;
@@ -33,10 +28,6 @@
   &:first-child {
     margin-right: 15px;
 
-    a {
-      padding-left: 5px;
-    }
-
     .fa {
       margin-right: 5px;
     }
@@ -45,10 +36,6 @@
   &:last-child {
     margin-left: 15px;
     text-align: right;
-
-    a {
-      padding-right: 5px;
-    }
 
     .fa {
       margin-left: 5px;

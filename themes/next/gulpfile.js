@@ -1,18 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
 const shell = require('gulp-shell');
 const yaml = require('js-yaml');
 
-gulp.task('lint', () => gulp.src([
-  './source/js/**/*.js',
-  './scripts/**/*.js'
-]).pipe(eslint())
-  .pipe(eslint.format()));
+gulp.task('lint', shell.task([
+  'npm run eslint'
+]));
 
 gulp.task('lint:stylus', shell.task([
-  '"./node_modules/.bin/stylint" ./source/css/'
+  'npm run stylint'
 ]));
 
 gulp.task('validate:config', cb => {
@@ -28,10 +25,10 @@ gulp.task('validate:config', cb => {
 
 gulp.task('validate:languages', cb => {
   const languagesPath = path.join(__dirname, 'languages');
-  const languages = fs.readdirSync(languagesPath);
   const errors = [];
 
-  languages.forEach(lang => {
+  fs.readdirSync(languagesPath).forEach(lang => {
+    if (!lang.endsWith('.yml')) return;
     const languagePath = path.join(languagesPath, lang);
     try {
       yaml.safeLoad(fs.readFileSync(languagePath), {

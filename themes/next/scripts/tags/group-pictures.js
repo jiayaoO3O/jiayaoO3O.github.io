@@ -1,12 +1,12 @@
 /**
- * group-pictures.js | https://theme-next.org/docs/tag-plugins/group-pictures
+ * group-pictures.js | https://theme-next.js.org/docs/tag-plugins/group-pictures
  */
 
 /* global hexo */
 
 'use strict';
 
-var LAYOUTS = {
+const LAYOUTS = {
   2: {
     1: [1, 1],
     2: [2]
@@ -72,7 +72,7 @@ var LAYOUTS = {
 };
 
 function groupBy(group, data) {
-  var r = [];
+  const r = [];
   for (let count of group) {
     r.push(data.slice(0, count));
     data = data.slice(count);
@@ -80,10 +80,10 @@ function groupBy(group, data) {
   return r;
 }
 
-var templates = {
+const templates = {
 
   dispatch: function(pictures, group, layout) {
-    var rule = LAYOUTS[group] ? LAYOUTS[group][layout] : null;
+    const rule = LAYOUTS[group] ? LAYOUTS[group][layout] : null;
     return rule ? this.getHTML(groupBy(rule, pictures)) : templates.defaults(pictures);
   },
 
@@ -97,11 +97,11 @@ var templates = {
    * @param pictures
    */
   defaults: function(pictures) {
-    var ROW_SIZE = 3;
-    var rows = pictures.length / ROW_SIZE;
-    var pictureArr = [];
+    const ROW_SIZE = 3;
+    const rows = pictures.length / ROW_SIZE;
+    const pictureArr = [];
 
-    for (var i = 0; i < rows; i++) {
+    for (let i = 0; i < rows; i++) {
       pictureArr.push(pictures.slice(i * ROW_SIZE, (i + 1) * ROW_SIZE));
     }
 
@@ -109,16 +109,14 @@ var templates = {
   },
 
   getHTML: function(rows) {
-    var rowHTML = rows.map(row => {
+    return rows.map(row => {
       return `<div class="group-picture-row">${this.getColumnHTML(row)}</div>`;
     }).join('');
-
-    return `<div class="group-picture-container">${rowHTML}</div>`;
   },
 
   getColumnHTML: function(pictures) {
-    var columnWidth = 100 / pictures.length;
-    var columnStyle = `style="width: ${columnWidth}%;"`;
+    const columnWidth = 100 / pictures.length;
+    const columnStyle = `style="width: ${columnWidth}%;"`;
     return pictures.map(picture => {
       return `<div class="group-picture-column" ${columnStyle}>${picture}</div>`;
     }).join('');
@@ -127,12 +125,12 @@ var templates = {
 
 function groupPicture(args, content) {
   args = args[0].split('-');
-  var group = parseInt(args[0], 10);
-  var layout = parseInt(args[1], 10);
+  const group = parseInt(args[0], 10);
+  const layout = parseInt(args[1], 10);
 
   content = hexo.render.renderSync({text: content, engine: 'markdown'});
 
-  var pictures = content.match(/<img[\s\S]*?>/g);
+  const pictures = content.match(/<img[\s\S]*?>/g);
 
   return `<div class="group-picture">${templates.dispatch(pictures, group, layout)}</div>`;
 }

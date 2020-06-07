@@ -11,12 +11,12 @@ hexo.extend.filter.register('theme_inject', injects => {
   if (!theme.changyan.enable || !theme.changyan.appid || !theme.changyan.appkey) return;
 
   injects.comment.raw('changyan', `
-  <div class="comments" id="comments">
+  <div class="comments">
     <div id="SOHUCS"></div>
   </div>
   `, {}, {cache: true});
 
-  injects.bodyEnd.file('changyan', path.join(hexo.theme_dir, 'layout/_third-party/comments/changyan.swig'));
+  injects.bodyEnd.file('changyan', path.join(hexo.theme_dir, 'layout/_third-party/comments/changyan.njk'));
 
 });
 
@@ -28,7 +28,7 @@ hexo.extend.filter.register('theme_inject', injects => {
   injects.postMeta.raw('changyan', `
   {% if post.comments %}
   <span class="post-meta-item">
-    ${iconText('comment-o', 'changyan')}
+    ${iconText('far fa-comment', 'changyan')}
     {% if is_post() %}
       <a title="changyan" href="{{ url_for(post.path) }}#SOHUCS" itemprop="discussionUrl">
         <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentCount"></span>

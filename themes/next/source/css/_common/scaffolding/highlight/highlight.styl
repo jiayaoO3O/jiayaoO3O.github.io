@@ -1,15 +1,17 @@
-// https://github.com/chriskempson/tomorrow-theme
-$highlight-theme = hexo-config('codeblock.highlight_theme');
+@import hexo-config('highlight.light.file');
 
-@import 'theme';
-@import 'diff';
+if (hexo-config('darkmode')) {
+  @media (prefers-color-scheme: dark) {
+    @import hexo-config('highlight.dark.file');
+  }
+}
 
 @import 'copy-code' if (hexo-config('codeblock.copy_button.enable'));
 
 // Placeholder: $code-block
 $code-block {
-  background: $highlight-background;
-  color: $highlight-foreground;
+  background: var(--highlight-background);
+  color: var(--highlight-foreground);
   line-height: $line-height-code-block;
   margin: 0 auto 20px;
 }
@@ -20,7 +22,7 @@ pre, code {
 
 code {
   background: $code-background;
-  border-radius: $code-border-radius;
+  border-radius: 3px;
   color: $code-foreground;
   padding: 2px 4px;
   word-wrap();
@@ -28,15 +30,12 @@ code {
 
 .highlight {
   @extend $code-block;
-
-  *::selection {
-    background: $highlight-selection;
-  }
+  position: relative;
 
   pre {
     border: 0;
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
   }
 
   table {
@@ -45,49 +44,47 @@ code {
     width: auto;
   }
 
-  tr {
-    &:first-child pre {
-      padding-top: 10px;
-    }
-    &:last-child pre {
-      padding-bottom: 10px;
-    }
-  }
-
   td {
     border: 0;
     padding: 0;
   }
 
   figcaption {
-    background: $code-background;
-    color: $highlight-foreground;
+    background: var(--highlight-gutter-background);
+    color: var(--highlight-foreground);
+    display: flex;
     font-size: $table-font-size;
+    justify-content: space-between;
     line-height: 1.2;
     padding: .5em;
-    clearfix();
 
     a {
-      color: $highlight-foreground;
-      float: right;
+      color: var(--highlight-foreground);
 
       &:hover {
-        border-bottom-color: $highlight-foreground;
+        border-bottom-color: var(--highlight-foreground);
       }
+    }
+
+    a, span {
+      min-width: 0;
     }
   }
 
-  .gutter pre {
-    background: $highlight-gutter.bg-color;
-    color: $highlight-gutter.color;
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: right;
+  .gutter {
     disable-user-select();
+
+    pre {
+      background: var(--highlight-gutter-background);
+      color: var(--highlight-gutter-foreground);
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: right;
+    }
   }
 
   .code pre {
-    background: $highlight-background;
+    background: var(--highlight-background);
     padding-left: 10px;
     width: 100%;
   }
@@ -108,50 +105,9 @@ pre {
 
   code {
     background: none;
-    color: $highlight-foreground;
+    color: var(--highlight-foreground);
     font-size: $table-font-size;
     padding: 0;
     text-shadow: none;
-  }
-  // For diff highlight
-  .deletion {
-    background: $highlight-deletion;
-  }
-
-  .addition {
-    background: $highlight-addition;
-  }
-
-  .meta {
-    color: $highlight-yellow;
-    disable-user-select();
-  }
-
-  .comment {
-    color: $highlight-comment;
-  }
-
-  .variable, .attribute, .tag, .name, .regexp, .ruby .constant, .xml .tag .title, .xml .pi, .xml .doctype, .html .doctype, .css .id, .css .class, .css .pseudo {
-    color: $highlight-red;
-  }
-
-  .number, .preprocessor, .built_in, .builtin-name, .literal, .params, .constant, .command {
-    color: $highlight-orange;
-  }
-
-  .ruby .class .title, .css .rules .attribute, .string, .symbol, .value, .inheritance, .header, .ruby .symbol, .xml .cdata, .special, .formula {
-    color: $highlight-green;
-  }
-
-  .title, .css .hexcolor {
-    color: $highlight-aqua;
-  }
-
-  .function, .python .decorator, .python .title, .ruby .function .title, .ruby .title .keyword, .perl .sub, .javascript .title, .coffeescript .title {
-    color: $highlight-blue;
-  }
-
-  .keyword, .javascript .function {
-    color: $highlight-purple;
   }
 }

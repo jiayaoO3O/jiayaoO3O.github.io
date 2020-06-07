@@ -5,11 +5,11 @@
   <a title="Russian" href="../docs/ru/CODE_OF_CONDUCT.md">:ru:</a>
 </div>
 
-# <div align="center"><a title="Go to homepage" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div>
+# <div align="center"><a title="Go to homepage" href="https://theme-next.js.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/next-theme/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div>
 
-[NexT](https://theme-next.org) is an elegant and powerful theme for [Hexo](https://hexo.io/). With it, you can build a static blog hosted on [GitHub Pages](https://pages.github.com/) to share your life and communicate with new friends.
+[NexT](https://theme-next.js.org) is an elegant and powerful theme for [Hexo](https://hexo.io/). With it, you can build a static blog hosted on [GitHub Pages](https://pages.github.com/) to share your life and communicate with new friends.
 
-A CODE_OF_CONDUCT dictates how conversation during code updates, issue communication, and pull requests should happen within [NexT](https://github.com/theme-next/hexo-theme-next) repository.  We expect all users to show respect and courtesy to others through our repositories. Anyone violating these rules will not be reviewed and will be blocked and expelled from our repositories immediately upon discovery.
+A CODE_OF_CONDUCT dictates how conversation during code updates, issue communication, and pull requests should happen within [NexT](https://github.com/next-theme/hexo-theme-next) repository.  We expect all users to show respect and courtesy to others through our repositories. Anyone violating these rules will not be reviewed and will be blocked and expelled from our repositories immediately upon discovery.
 
 ## Table Of Contents
 
@@ -88,9 +88,7 @@ You may get in touch with the maintainer team through any of the following metho
     * [support@theme-next.org](mailto:support@theme-next.org)
 
 * Through Chat:
-    * [Gitter](https://gitter.im/theme-next)
-    * [Riot](https://riot.im/app/#/room/#NexT:matrix.org)
-    * [Telegram](https://t.me/joinchat/GUNHXA-vZkgSMuimL1VmMw)
+    * [Gitter](https://gitter.im/hexo-next)
 
 ## Attribution
 

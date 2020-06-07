@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const points = require('./injects-point');
-const defaultExtname = '.swig';
+const defaultExtname = '.njk';
 
 // Defining stylus types
 class StylusInject {

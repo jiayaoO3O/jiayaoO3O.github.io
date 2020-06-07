@@ -1,13 +1,13 @@
 /* global NexT, CONFIG, Velocity */
 
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-  var isRight = CONFIG.sidebar.position === 'right';
-  var SIDEBAR_WIDTH = CONFIG.sidebar.width || 320;
-  var SIDEBAR_DISPLAY_DURATION = 400;
-  var mousePos = {}; var touchPos = {};
+  const isRight = CONFIG.sidebar.position === 'right';
+  const SIDEBAR_WIDTH = CONFIG.sidebar.width || 320;
+  const SIDEBAR_DISPLAY_DURATION = 200;
+  const mousePos = {};
 
-  var sidebarToggleLines = {
+  const sidebarToggleLines = {
     lines: document.querySelector('.sidebar-toggle'),
     init : function() {
       this.lines.classList.remove('toggle-arrow', 'toggle-close');
@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  var sidebarToggleMotion = {
+  const sidebarToggleMotion = {
     sidebarEl       : document.querySelector('.sidebar'),
     isSidebarVisible: false,
     init            : function() {
@@ -34,9 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.sidebar-toggle').addEventListener('click', this.clickHandler.bind(this));
       document.querySelector('.sidebar-toggle').addEventListener('mouseenter', this.mouseEnterHandler.bind(this));
       document.querySelector('.sidebar-toggle').addEventListener('mouseleave', this.mouseLeaveHandler.bind(this));
-      this.sidebarEl.addEventListener('touchstart', this.touchstartHandler.bind(this));
-      this.sidebarEl.addEventListener('touchend', this.touchendHandler.bind(this));
-      this.sidebarEl.addEventListener('touchmove', event => event.preventDefault());
       window.addEventListener('sidebar:show', this.showSidebar.bind(this));
       window.addEventListener('sidebar:hide', this.hideSidebar.bind(this));
     },
@@ -45,9 +42,9 @@ window.addEventListener('DOMContentLoaded', () => {
       mousePos.Y = event.pageY;
     },
     mouseupHandler: function(event) {
-      var deltaX = event.pageX - mousePos.X;
-      var deltaY = event.pageY - mousePos.Y;
-      var clickingBlankPart = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY)) < 20 && event.target.matches('.main');
+      const deltaX = event.pageX - mousePos.X;
+      const deltaY = event.pageY - mousePos.Y;
+      const clickingBlankPart = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY)) < 20 && event.target.matches('.main');
       if (this.isSidebarVisible && (clickingBlankPart || event.target.matches('img.medium-zoom-image, .fancybox img'))) {
         this.hideSidebar();
       }
@@ -63,18 +60,6 @@ window.addEventListener('DOMContentLoaded', () => {
     mouseLeaveHandler: function() {
       if (!this.isSidebarVisible) {
         sidebarToggleLines.init();
-      }
-    },
-    touchstartHandler: function(event) {
-      touchPos.X = event.touches[0].clientX;
-      touchPos.Y = event.touches[0].clientY;
-    },
-    touchendHandler: function(event) {
-      var deltaX = event.changedTouches[0].clientX - touchPos.X;
-      var deltaY = event.changedTouches[0].clientY - touchPos.Y;
-      var effectiveSliding = Math.abs(deltaY) < 20 && ((deltaX > 30 && isRight) || (deltaX < -30 && !isRight));
-      if (this.isSidebarVisible && effectiveSliding) {
-        this.hideSidebar();
       }
     },
     showSidebar: function() {
@@ -117,8 +102,8 @@ window.addEventListener('DOMContentLoaded', () => {
   sidebarToggleMotion.init();
 
   function updateFooterPosition() {
-    var footer = document.querySelector('.footer');
-    var containerHeight = document.querySelector('.header').offsetHeight + document.querySelector('.main').offsetHeight + footer.offsetHeight;
+    const footer = document.querySelector('.footer');
+    const containerHeight = document.querySelector('.header').offsetHeight + document.querySelector('.main').offsetHeight + footer.offsetHeight;
     footer.classList.toggle('footer-fixed', containerHeight <= window.innerHeight);
   }
 
