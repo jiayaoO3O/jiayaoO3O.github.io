@@ -1,5 +1,5 @@
 ---
-title: 比frp更好用得内网穿透工具-ZeroTier One
+title: 比frp更好用的内网穿透工具-ZeroTier One
 date: 2020-06-10 14.51.00
 tags: 内网穿透
 categories: 技术
