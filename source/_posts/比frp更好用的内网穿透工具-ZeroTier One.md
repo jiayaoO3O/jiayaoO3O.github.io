@@ -5,9 +5,7 @@ tags: 内网穿透
 categories: 技术
 ---
 
-曾经我觉得, 最好用的内网穿透工具是frp, 并且写了一篇文章来赞美免费提供8M带宽提供内网穿透的[Sakura Frp](https://jiayaoo3o.github.io/2019/03/01/Sakura-Frp-%E5%85%8D%E8%B4%B9%E7%9A%84%E9%AB%98%E9%80%9F%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7/)
-
-, 但后来我发现, 哪怕是Sakura Frp免费提供了公网服务器, 使用起来还是有点繁琐了, 并且速度只有8M, 所以最终我找到了能够代替frp的内网穿透工具 : ZeroTier.
+曾经我觉得, 最好用的内网穿透工具是frp, 并且写了一篇文章来赞美免费提供8M带宽提供内网穿透的[Sakura Frp](https://jiayaoo3o.github.io/2019/03/01/Sakura-Frp-%E5%85%8D%E8%B4%B9%E7%9A%84%E9%AB%98%E9%80%9F%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7/), 但后来我发现, 哪怕是Sakura Frp免费提供了公网服务器, 使用起来还是有点繁琐了, 并且速度只有8M, 所以最终我找到了能够代替frp的内网穿透工具 : ZeroTier.
 
 ## ZeroTier One是什么?
 
