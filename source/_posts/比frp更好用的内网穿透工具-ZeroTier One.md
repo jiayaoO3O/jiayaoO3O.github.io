@@ -9,7 +9,7 @@ categories: 技术
 
 ## ZeroTier One是什么?
 
-ZeroTier One是一款内网穿透软件, 但是和frp的"内网客户端-远程公网服务器-内网客户端"模式不同的是, ZeroTier One是通过p2p方式在不同的设备之间进行连接的, 只要所有的设备都加入了同一个ZeroTier Network, 互相之间就可以像在局域网中那样访问对方, 并且是直接连接而不需要走公网服务器, 速度上限基本取决与设备之间的网速而不是ZeroTier服务器.免费版的ZeroTier能够连接多达100各设备, 足够个人使用了.
+ZeroTier One是一款内网穿透软件, 但是和frp的"内网客户端-远程公网服务器-内网客户端"模式不同的是, ZeroTier One是通过p2p方式在不同的设备之间进行连接的, 只要所有的设备都加入了同一个ZeroTier Network, 互相之间就可以像在局域网中那样访问对方, 并且是直接连接而不是走公网服务器, 速度上限基本取决与设备之间的网速而不是ZeroTier服务器.免费版的ZeroTier能够连接多达100各设备, 足够个人使用了.
 
 <!-- more -->
 
@@ -27,13 +27,13 @@ ZeroTier One是一款内网穿透软件, 但是和frp的"内网客户端-远程�
 
 ![](https://i.loli.net/2020/06/10/qPHpS3lTxMInJ6R.png)
 
-### 创建一个network
+### 创建一个Network
 
 点击Networks标签, 再点击Create a Network按钮创建一个网络.
 
 ![](https://i.loli.net/2020/06/10/rahZWlA5Ii4bjLu.png)
 
-### 配置network基本信息
+### 配置Network基本信息
 
 点击刚刚创建的网络, 可以进入到network配置页面, 配置的作用如下图.
 
