@@ -206,3 +206,5 @@ docker run -d --name=jellyfin -v /home/jiayao/Docker/jellyfin/config:/config -v 
 ```
 
 访问4000端口即可进入jellyfin页面.
+
+## 安装ZeroTier One
