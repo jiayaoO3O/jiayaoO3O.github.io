@@ -56,7 +56,7 @@ sudo apt upgrade -y
 
 ## 取消笔记本Ubuntu的盒盖挂起功能
 
-默认情况下, 使用笔记本安装Ubuntu, 电脑盒盖时整个系统会被挂起, 这个功能相当地扯淡, 执行以下操作可以进行修改 :
+默认情况下, 使用笔记本安装Ubuntu, 电脑盒盖时整个系统会被挂起, 这个功能相当的扯淡, 执行以下操作可以进行修改 :
 
 ```
 sudo nano /etc/systemd/logind.conf
@@ -73,7 +73,7 @@ Ubuntu20.04默认没有安装sshd, 这个时候只要在终端输入sshd, 系统
 sudo apt install openssh-server -y
 ```
 
-安装到这一步, 就可以不再这台笔记本上面操作了, 可以用另一台电脑远程连接到这台电脑上面.
+安装到这一步, 就可以不在这台笔记本上面操作了, 可以用另一台电脑远程连接到这台电脑上面.
 
 ## 安装docker
 
@@ -109,7 +109,7 @@ docker pull adguard/adguardhome
 - DNS服务器需要使用53端口, 但是Ubuntu自身的53端口已经被systemd-resolved占用了, 使用`sudo lsof -i:53`命令可以看到systemd-resolved正在运行中.
 - adguardhome也需要使用68端口, 但是Ubuntu自身的DHCP会占用68端口, 不过由于我们不使用adguardhome的DHCP功能, 所以可以不用管, 换成映射成69端口即可
 
-要解决的一个问题, 其实adguardhome的docker hub主页就有提示要如何操作 :
+要解决第一个问题, 其实adguardhome的docker hub主页就有提示要如何操作 :
 
 ![](https://i.loli.net/2020/06/16/9LDSjlIrdJhMRE8.png)
 
@@ -126,6 +126,7 @@ DNSStubListener=no
 mv /etc/resolv.conf /etc/resolv.conf.backup
 #创建一个链接
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+#重启systemd-resolved
 sudo systemctl restart systemd-resolved
 ```
 
@@ -141,22 +142,22 @@ docker run --name adguardhome -v /home/jiayao/Docker/adguardhome/work:/opt/adgua
 
 使用adguardhome最重要的就是添加DNS过滤器, adguardhome就是根据这些过滤器来屏蔽广告和加速网页访问的, 分享一些我在使用的配置 :
 
-url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
-name: AdGuard Simplified Domain Names filter
-url: https://cdn.jsdelivr.net/gh/neoFelhz/neohosts@gh-pages/127.0.0.1/full/hosts
-name: neohosts
-url: http://git.oschina.net/halflife/list/raw/master/ad.txt
-name: My AdFilters
-url: https://easylist-downloads.adblockplus.org/easyprivacy.txt
-name: EasyPrivacy
-url: https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
-name: ad-wars
-url: https://raw.githubusercontent.com/googlehosts/hosts/master/hosts-files/hosts
-name: googlehosts
-url: https://filters.adtidy.org/android/filters/11_optimized.txt
-name: AdGuard Mobile Ads filter (Optimized)
-url: https://filters.adtidy.org/android/filters/3_optimized.txt
-name: AdGuard Tracking Protection filter (Optimized)
+> url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+> name: AdGuard Simplified Domain Names filter
+> url: https://cdn.jsdelivr.net/gh/neoFelhz/neohosts@gh-pages/127.0.0.1/full/hosts
+> name: neohosts
+> url: http://git.oschina.net/halflife/list/raw/master/ad.txt
+> name: My AdFilters
+> url: https://easylist-downloads.adblockplus.org/easyprivacy.txt
+> name: EasyPrivacy
+> url: https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
+> name: ad-wars
+> url: https://raw.githubusercontent.com/googlehosts/hosts/master/hosts-files/hosts
+> name: googlehosts
+> url: https://filters.adtidy.org/android/filters/11_optimized.txt
+> name: AdGuard Mobile Ads filter (Optimized)
+> url: https://filters.adtidy.org/android/filters/3_optimized.txt
+> name: AdGuard Tracking Protection filter (Optimized)
 
 到这里adguardhome算是装完了.
 
