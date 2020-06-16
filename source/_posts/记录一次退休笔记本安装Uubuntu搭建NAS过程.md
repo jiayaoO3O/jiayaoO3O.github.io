@@ -246,3 +246,18 @@ docker pull mikolatero/vlmcsd
 ```shell
 docker run -d -p 1688:1688 --restart=always --name vlmcsd mikolatero/vlmcsd
 ```
+
+## 部署人人影视rrshareweb服务
+
+人人影视官方有一个linux版本的客户端, 虽然感觉不怎么更新了, 但是无广告, 功能还是非常好用的, 有人做成了docker版本, 我也选择部署到NAS上.
+
+使用[liubing/rrshareweb](https://hub.docker.com/r/liubing/rrshareweb)的版本, 其实docker hub上面的rrhsareweb镜像都大同小异, 都可以.
+
+```shell
+docker pull liubing/rrshareweb
+```
+
+```shell
+docker run --name rrshare -d -p 3001:3001 -v /home/jiayao/Videos:/opt/work/store liubing/rrshareweb
+```
+
