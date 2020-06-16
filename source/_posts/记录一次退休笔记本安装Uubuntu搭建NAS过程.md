@@ -261,3 +261,4 @@ docker pull liubing/rrshareweb
 docker run --name rrshare -d -p 3001:3001 -v /home/jiayao/Videos:/opt/work/store liubing/rrshareweb
 ```
 
+> 搭建完发现官方已经废弃这个客户端了, 登陆上去啥都看不到, 也搜索不出来数据, 可惜了.
