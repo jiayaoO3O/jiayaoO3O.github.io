@@ -67,6 +67,12 @@ sudo nano /etc/systemd/logind.conf
 HandleLidSwitch=ignore
 ```
 
+保存之后执行下方命令重启服务 :
+
+```shell
+sudo service systemd-logind restart
+```
+
 ## 开启远程ssh连接
 
 Ubuntu20.04默认没有安装sshd, 这个时候只要在终端输入sshd, 系统会提示没有安装sshd, 是否需要安装, 并且连命令都已经提示出来了, 执行下方命令安装sshd :
@@ -84,6 +90,7 @@ sudo apt install openssh-server -y
 因为docker本身对Ubuntu的兼容性就足够好, 官方脚本里面已经默认兼容Ubuntu, 只要执行下方命令即可安装docker :
 
 ```shell
+sudo apt install curl
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
@@ -91,14 +98,14 @@ sudo sh get-docker.sh
 安装完成之后, 执行下方命令, 将你的所在用户加入到docker组, 这样运行docker命令就不用每次都使用sudo :
 
 ```
-sudo suermod -aG docker 你的用户名
+sudo usermod -aG docker 你的用户名
 ```
 
 然后重启即可使用docker.
 
 ## 部署Portainer服务
 
-Portainer是一个可视化的docker容器管理平台, 使用Portainer可以很方便地对docker容器经行各种操作, 部署Portainer也很简单, 两条命令即可 :
+Portainer是一个可视化的docker容器管理平台, 使用Portainer可以很方便地对docker容器进行各种操作, 部署Portainer也很简单, 两条命令即可 :
 
 ```shell
 docker volume create portainer_data #创建一个portainer_data卷, 由于portainer本身存储的东西不是很重要, 哪怕没了也没关系所以就懒得本地化挂载了.
@@ -222,7 +229,7 @@ docker run -d --name=jellyfin -v /home/jiayao/Docker/jellyfin/config:/config -v 
 
 ## 安装ZeroTier One
 
-ZeroTier One是一款免费的内网穿透软件, 安装之后就可以远程访问NAS里面的视频内容, 并且免费版可以使用多达一百台设备, 具体部署可以参考我[这一篇文章](https://jiayaoo3o.github.io/2020/06/11/%E6%AF%94frp%E6%9B%B4%E5%A5%BD%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7-ZeroTier%20One/), 可惜我的腾讯云服务器的学生优惠到期了, 1元/月的服务器没得用了, 所以也没法部署moon节点了, 可惜可惜.
+ZeroTier One是一款免费的内网穿透软件, 安装之后就可以远程访问NAS里面的视频内容, 并且免费版可以让多达一百台设备加入同一网络, 具体部署可以参考我[这一篇文章](https://jiayaoo3o.github.io/2020/06/11/%E6%AF%94frp%E6%9B%B4%E5%A5%BD%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7-ZeroTier%20One/), 可惜我的腾讯云服务器的学生优惠到期了, 1元/月的服务器没得用了, 所以也没法部署moon节点了, 可惜可惜.
 
 ## 部署vlmcsd服务
 
