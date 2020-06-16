@@ -16,6 +16,8 @@ categories: 技术
 
 换了新电脑, 这台老机器就决定用来当NAS用了.
 
+<!-- more -->
+
 ## 安装Ubuntu 20.04桌面版
 
 前往Ubuntu官网下载Ubuntu 20.04桌面版, 因为这次是安装在笔记本电脑上, 有屏幕, 如果直接装服务器版本就有点浪费了, 安装有图形界面的Linux发行版都比较简单, 而且Ubuntu的汉化工作也比较到位, 就不多介绍了.
@@ -93,6 +95,17 @@ sudo suermod -aG docker 你的用户名
 ```
 
 然后重启即可使用docker.
+
+## 部署Portainer服务
+
+Portainer是一个可视化的docker容器管理平台, 使用Portainer可以很方便地对docker容器经行各种操作, 部署Portainer也很简单, 两条命令即可 :
+
+```shell
+docker volume create portainer_data #创建一个portainer_data卷, 由于portainer本身存储的东西不是很重要, 哪怕没了也没关系所以就懒得本地化挂载了.
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+```
+
+部署完成进入设备的IP : 9000端口即可访问Portainer.
 
 ## 部署adguardhome服务
 
@@ -208,3 +221,21 @@ docker run -d --name=jellyfin -v /home/jiayao/Docker/jellyfin/config:/config -v 
 访问4000端口即可进入jellyfin页面.
 
 ## 安装ZeroTier One
+
+ZeroTier One是一款免费的内网穿透软件, 安装之后就可以远程访问NAS里面的视频内容, 并且免费版可以使用多达一百台设备, 具体部署可以参考我[这一篇文章](https://jiayaoo3o.github.io/2020/06/11/%E6%AF%94frp%E6%9B%B4%E5%A5%BD%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7-ZeroTier%20One/), 可惜我的腾讯云服务器的学生优惠到期了, 1元/月的服务器没得用了, 所以也没法部署moon节点了, 可惜可惜.
+
+## 部署vlmcsd服务
+
+vlmcsd是一个开源的kms服务, 本来是挂在腾讯云上面的, 结果上面说了腾讯云到期了, 也顺便部署到NAS上面吧.
+
+还是使用docker, 我使用的是[mikolatero/vlmcsd](https://hub.docker.com/r/mikolatero/vlmcsd)镜像, 使用下面命令可以拉取镜像 :
+
+```shell
+docker pull mikolatero/vlmcsd
+```
+
+部署非常简单, 只要暴露1688端口即可 :
+
+```shell
+docker run -d -p 1688:1688 --restart=always --name vlmcsd mikolatero/vlmcsd
+```
