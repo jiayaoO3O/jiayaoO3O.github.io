@@ -60,7 +60,7 @@ sudo apt upgrade -y
 
 默认情况下, 使用笔记本安装Ubuntu, 电脑盒盖时整个系统会被挂起, 这个功能相当的扯淡, 执行以下操作可以进行修改 :
 
-```
+```shell
 sudo nano /etc/systemd/logind.conf
 #HandleLidSwitch=suspend
 #找到上面的选项, 修改成下面的内容, 注意要删掉前面的#号
@@ -97,7 +97,7 @@ sudo sh get-docker.sh
 
 安装完成之后, 执行下方命令, 将你的所在用户加入到docker组, 这样运行docker命令就不用每次都使用sudo :
 
-```
+```shell
 sudo usermod -aG docker 你的用户名
 ```
 
@@ -215,13 +215,13 @@ docker pull jellyfin/jellyfin:latest
 
 然后在本地创建两个文件夹config和cache
 
-```
+```shell
  mkdir -p jellyfin/{config,cache}
 ```
 
 然后就可以开始运行启动一个jellyfin容器 :
 
-```
+```shell
 docker run -d --name=jellyfin -v /home/jiayao/Docker/jellyfin/config:/config -v /home/jiayao/Docker/jellyfin/cache:/cache -v /home/jiayao/Videos:/media -p 4000:8096 jellyfin/jellyfin:latest
 ```
 
