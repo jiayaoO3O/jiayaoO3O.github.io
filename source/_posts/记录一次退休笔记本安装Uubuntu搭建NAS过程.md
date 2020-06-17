@@ -1,7 +1,7 @@
 ---
 title: 记录一次退休笔记本安装Uubuntu搭建NAS过程
 date: 2020-06-16 09:37:00
-tags: [Ubuntu,Docker]
+tags: [Ubuntu,docker]
 categories: 技术
 ---
 
