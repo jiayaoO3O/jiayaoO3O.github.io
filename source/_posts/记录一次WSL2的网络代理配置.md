@@ -9,7 +9,7 @@ categories: 技术
 
 ## WSL2获取Win10ip
 
-在Win10 -> WSL2这个方向, 是可以直接通过Localhost来访问的, 但是WSL2 -> Win10这个方向就不能直接访问Localhost了, 想要查看WSL2中Win10的ip, 只需要查看``resolve.conf` :
+在Win10 -> WSL2这个方向, 是可以直接通过Localhost来访问的, 但是WSL2 -> Win10这个方向就不能直接访问Localhost了, 需要指定Win10的ip, 想要查看WSL2中Win10的ip, 只需要查看`resolve.conf` :
 
 ```shell
 cat /etc/resolv.conf
@@ -47,7 +47,7 @@ git也可以设置为使用代理 :
 git config --global proxy.https socks5://$windows_host:10808
 ```
 
-如果想要这些环境变量和设置每次启动终端都生效, 可以在~/.bashrc文件最下方添加上述内容 :
+如果想要这些环境变量和设置每次启动终端都生效, 可以在`~/.bashrc`文件最下方添加上述内容 :
 
 ```shell
 export windows_host=`cat /etc/resolv.conf|grep nameserver|awk '{print $2}'`
