@@ -62,6 +62,10 @@ if [ "`git config --global --get proxy.https`" != "socks5://$windows_host:10808"
 fi
 ```
 
+## 设置V2ray允许局域网连接
+
+![](https://i.loli.net/2020/06/23/CynkNFRxavlXQ6E.png)
+
 ## 设置Win10防火墙
 
 这一步是最重要的一步, 也是最坑的一步, 需要在Win10防火墙中允许V2ray进行公用和专用网络的访问! 只要设置这个就可以了, 不需要调整过其他设置!
