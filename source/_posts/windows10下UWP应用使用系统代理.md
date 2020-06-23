@@ -4,7 +4,7 @@ date: 2019-06-28 11:08:12
 tags: Windows10
 categories: 技术
 ---
-由于UWP本身运行在沙盒中,默认情况下是不能直接访问localhost的,所以也就不能直接访问本机的代理服务,但是win10自身有一个叫CheckNetIsolation.exe 的命令行工具可以将uwp应用设置为使用代理.
+由于UWP本身运行在沙盒中,默认情况下是不能直接访问localhost的,所以也就不能直接访问本机的代理服务,但是Win10自身有一个叫CheckNetIsolation.exe 的命令行工具可以将uwp应用设置为使用代理.
 
 ## 单独指定某个UWP应用可以代理
 

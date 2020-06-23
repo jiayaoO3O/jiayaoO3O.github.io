@@ -1,5 +1,5 @@
 ---
-title: 删除win10右键菜单Radeon设置选项
+title: 删除Win10右键菜单Radeon设置选项
 date: 2020-06-15 18:31:00
 tags: Windows10
 categories: 技术
