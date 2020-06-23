@@ -1,7 +1,7 @@
 ---
 title: 删除win10右键菜单Radeon设置选项
 date: 2020-06-15 18:31:00
-tags: windows10
+tags: Windows10
 categories: 技术
 ---
 1. 打开regedit.

@@ -1,7 +1,7 @@
 ---
 title: 使用mklink命令软连接Onedrive同步任意文件夹
 date: 2019-12-20 23:47:34
-tags: [windows10,Onedrive]
+tags: [Windows10,Onedrive]
 categories: 技术
 ---
 

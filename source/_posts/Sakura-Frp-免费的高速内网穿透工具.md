@@ -20,7 +20,7 @@ categories: 技术
 
 # 使用Sakurafrp进行远程桌面控制
 
-既然frp主打的功能是内网穿透,在这里就用windows的远程桌面来展示如何使用Sakura frp.
+既然frp主打的功能是内网穿透,在这里就用Windows的远程桌面来展示如何使用Sakura frp.
 
 ## 1.注册并登录Sakurafrp
 
@@ -38,7 +38,7 @@ categories: 技术
 
 ## 3.下载Sakurafrp客户端
 
-创建成功之后,点击左侧的客户软件选择适合自己的客户端进行[下载](https://s1.tcotp.cn/cdn/SakurafrpClient-2.3/Sakura_frpc_windows_amd64.exe),如果没有需求不需要下载图形版本.
+创建成功之后,点击左侧的客户软件选择适合自己的客户端进行[下载](https://s1.tcotp.cn/cdn/SakurafrpClient-2.3/Sakura_frpc_Windows_amd64.exe),如果没有需求不需要下载图形版本.
 
 ![](https://i.loli.net/2019/03/01/5c79537c0ba50.png)
 
@@ -71,7 +71,7 @@ s21.natfrp.org:10010
 2. 在powershell等终端软件中打开Sakurafrp,这种方法可以免去每次手动输入账户名,密码,服务器ID.只要在Sakurafrp客户端所在的文件夹中,按住Shift键,选择打开powershell,然后在powershell中输入:
 
    ```
-   ./Sakura_frpc_windows_amd64.exe --su="你的用户名" --sp="你的密码" --sid="服务器ID"
+   ./Sakura_frpc_Windows_amd64.exe --su="你的用户名" --sp="你的密码" --sid="服务器ID"
    ```
 
    即可自动登录并且选择服务器.
@@ -87,7 +87,7 @@ s21.natfrp.org:10010
    右键该文件,选择编辑,输入:
 
    ```powershell
-   Sakura_frpc_windows_amd64.exe --su="你的用户名" --sp="你的密码" --sid="服务器ID"
+   Sakura_frpc_Windows_amd64.exe --su="你的用户名" --sp="你的密码" --sid="服务器ID"
    ```
 
    并且保存.

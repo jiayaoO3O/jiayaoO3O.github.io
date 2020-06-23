@@ -1,5 +1,5 @@
 ---
-title: windows10安装MySQL
+title: Windows10安装MySQL
 date: 2019-04-24 17:18:14
 tags: MySQL
 categories: 技术
@@ -7,7 +7,7 @@ categories: 技术
 
 ## 安装MySQL
 
-使用[scoop](https://jiayaoo3o.github.io/2019/01/30/windows%E4%B8%8B%E7%9A%84%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E7%A5%9E%E5%99%A8-scoop/)直接安装mysql:
+使用[scoop](https://jiayaoo3o.github.io/2019/01/30/Windows%E4%B8%8B%E7%9A%84%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E7%A5%9E%E5%99%A8-scoop/)直接安装mysql:
 
 ```powershell
 scoop install mysql

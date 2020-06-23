@@ -5,7 +5,7 @@ tags: scoop
 categories: 技术
 ---
 
-重装系统之后,如果把原有的scoop文件夹粘贴回去user文件夹,然后在powershell中再次输入[windows下的软件管理神器:scoop](<https://jiayaoo3o.github.io/2019/01/30/windows%E4%B8%8B%E7%9A%84%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E7%A5%9E%E5%99%A8-scoop/>)文章中的安装命令,会得到一个**Scoop is already installed**错误,要想正确恢复scoop,根据[官方回答](https://github.com/lukesampson/scoop/issues/2894),请按照以下步骤:
+重装系统之后,如果把原有的scoop文件夹粘贴回去user文件夹,然后在powershell中再次输入[Windows下的软件管理神器:scoop](<https://jiayaoo3o.github.io/2019/01/30/Windows%E4%B8%8B%E7%9A%84%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E7%A5%9E%E5%99%A8-scoop/>)文章中的安装命令,会得到一个**Scoop is already installed**错误,要想正确恢复scoop,根据[官方回答](https://github.com/lukesampson/scoop/issues/2894),请按照以下步骤:
 
 <!-- more -->
 

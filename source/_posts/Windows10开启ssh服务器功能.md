@@ -5,11 +5,11 @@ tags: [ssh,内网穿透]
 categories: 技术
 ---
 
-# 为什么要用ssh连接windows10
+# 为什么要用ssh连接Windows10
 
-一般来说,想要远程连接并且使用windows10的命令行有两种方法:
+一般来说,想要远程连接并且使用Windows10的命令行有两种方法:
 
-1. 使用微软自带的远程桌面(RDP)或者其他第三方远程桌面控制软件(teamviewer等)远程控制windows10,然后在软件控制界面使用命令行.
+1. 使用微软自带的远程桌面(RDP)或者其他第三方远程桌面控制软件(teamviewer等)远程控制Windows10,然后在软件控制界面使用命令行.
 2. 使用ssh连接到Windows10,然后使用命令行.
 
 而如果电脑没有公网ip,可以参考上一篇文章 [Sakura frp--免费的高速内网穿透工具](https://jiayaoo3o.github.io/2019/03/01/Sakura-Frp-%E5%85%8D%E8%B4%B9%E7%9A%84%E9%AB%98%E9%80%9F%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7/)进行内网穿透,从而在外网访问本地电脑.

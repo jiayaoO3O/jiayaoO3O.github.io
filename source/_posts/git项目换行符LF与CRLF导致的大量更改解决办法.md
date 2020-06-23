@@ -6,7 +6,7 @@ categories: 技术
 ---
 ## 产生该问题的原因
 
-产生该问题的原因是由于windows平台和linux平台的默认换行符是不一样的,linux使用的是`0x0A(LF)`而Windows使用的是`0x0D0A(CRLF)`,这就导致了当Windows下的代码放到linux下运行时,虽然代码没有错,但是linux下的git检测到项目的换行符为CRLF时会自动换成LF.
+产生该问题的原因是由于Windows平台和linux平台的默认换行符是不一样的,linux使用的是`0x0A(LF)`而Windows使用的是`0x0D0A(CRLF)`,这就导致了当Windows下的代码放到linux下运行时,虽然代码没有错,但是linux下的git检测到项目的换行符为CRLF时会自动换成LF.
 
 <!-- more -->
 

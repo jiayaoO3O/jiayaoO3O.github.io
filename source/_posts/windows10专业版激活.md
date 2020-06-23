@@ -1,11 +1,11 @@
 ---
-title: windows10专业版激活
+title: Windows10专业版激活
 date: 2019-05-03 22:41:46
 tags: Windows10
 categories: 技术
 ---
 
-## 激活windows的原理
+## 激活Windows的原理
 
 GitHub上的这个开源的[KMS模拟器项目](https://github.com/Wind4/vlmcsd)能够让你的服务器成为一台kms,所以只要你有一台服务器,在服务器上运行这个软件,即可用于激活Windows.
 

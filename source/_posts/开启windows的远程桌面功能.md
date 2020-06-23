@@ -1,7 +1,7 @@
 ---
-title: 开启windows的远程桌面功能
+title: 开启Windows的远程桌面功能
 date: 2019-04-09 09:52:57
-tags: [windows10,远程桌面]
+tags: [Windows10,远程桌面]
 categories: 技术
 ---
 
@@ -11,7 +11,7 @@ categories: 技术
 
 ## 确定Windows版本
 
-这是一切的开始,微软的**windows家庭版**,**教育版**默认情况下:
+这是一切的开始,微软的**Windows家庭版**,**教育版**默认情况下:
 
 - 可以远程连接别的电脑
 - 但是不能够被远程连接
@@ -90,7 +90,7 @@ User name 点击 添加一个账户,输入电脑的用户名和密码,就可以�
 
 解决方法,请看这篇文章:
 
-[解除windows10多账户远程桌面连接限制](https://jiayaoo3o.github.io/2019/04/09/%E8%A7%A3%E9%99%A4windows10%E5%A4%9A%E8%B4%A6%E6%88%B7%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E9%99%90%E5%88%B6/)
+[解除Windows10多账户远程桌面连接限制](https://jiayaoo3o.github.io/2019/04/09/%E8%A7%A3%E9%99%A4Windows10%E5%A4%9A%E8%B4%A6%E6%88%B7%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E9%99%90%E5%88%B6/)
 
 ## 进行远程连接(内网穿透)
 

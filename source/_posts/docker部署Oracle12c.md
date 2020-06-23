@@ -7,7 +7,7 @@ categories: 技术
 
 ## 本机安装docker
 
-安装过程省略 , 注意docker for windows 是依赖win10的hyper-v功能的,而hyper-v的虚拟化技术目前与VMware并不兼容 , 所以使用了VMware安装虚拟机却想要使用docker for windows , 有可能需要卸载VMware.
+安装过程省略 , 注意docker for Windows 是依赖win10的hyper-v功能的,而hyper-v的虚拟化技术目前与VMware并不兼容 , 所以使用了VMware安装虚拟机却想要使用docker for Windows , 有可能需要卸载VMware.
 
 ## 卸载原本的Oracle数据库
 

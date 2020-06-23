@@ -1,13 +1,13 @@
 ---
-title: 'windows下的软件管理神器:scoop'
+title: 'Windows下的软件管理神器:scoop'
 date: 2019-01-30 11:40:00
-tags: [windows10,包管理器,scoop]
+tags: [Windows10,包管理器,scoop]
 categories: 技术
 ---
 
 # scoop是什么
 
-[Scoop](https://scoop.sh/)是一款windows下的命令行软件管理工具,类似于ubuntu下的apt,它存在的意义,就是为了解决Windows下没有一个统一包管理器的痛点,有了scoop,在windows下也能一条命令直接安装,升级,卸载,切换软件的不同版本等
+[Scoop](https://scoop.sh/)是一款Windows下的命令行软件管理工具,类似于ubuntu下的apt,它存在的意义,就是为了解决Windows下没有一个统一包管理器的痛点,有了scoop,在Windows下也能一条命令直接安装,升级,卸载,切换软件的不同版本等
 
 <!-- more -->
 
@@ -15,7 +15,7 @@ categories: 技术
 
 # 安装scoop
 
-scoop的使用与安装都要依赖PowerShell,所以电脑系统最好是windows10的.安装方法很简单,以下命令都在PowerShell中输入:
+scoop的使用与安装都要依赖PowerShell,所以电脑系统最好是Windows10的.安装方法很简单,以下命令都在PowerShell中输入:
 
 ```
 set-executionpolicy remotesigned -s currentuser
@@ -251,7 +251,7 @@ scoop bucket rm 仓库名
 
 # scoop的优缺点分析
 
-scoop作为一款windows下的包管理器,意义是非凡的,尤其是对于程序员而言,它极大地解决了程序员安装各种开发环境的麻烦,一键自动设置环境变量,包括:
+scoop作为一款Windows下的包管理器,意义是非凡的,尤其是对于程序员而言,它极大地解决了程序员安装各种开发环境的麻烦,一键自动设置环境变量,包括:
 
 - dotnet core
 - java

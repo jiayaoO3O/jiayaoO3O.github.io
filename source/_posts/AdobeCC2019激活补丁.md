@@ -15,7 +15,7 @@ categories: 技术
 
 - Adobe系列软件
 - office系列软件
-- windows系统系列
+- Windows系统系列
 - 各种制图软件,3d建模软件系列
 
 adobe系列软件从2019版开始,改变了激活策略,以前用软件更换一个amtlib.dll的方法,只能激活19年以前的版本,现在已经不能用了.
