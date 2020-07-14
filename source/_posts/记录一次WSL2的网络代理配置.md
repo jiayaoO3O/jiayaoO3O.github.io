@@ -27,7 +27,7 @@ nameserver 172.18.176.1
 ```shell
 cat /etc/resolv.conf|grep nameserver|awk '{print $2}'
 ```
-
+<!-- more -->
 ## WSL2设置环境变量
 
 由于上面已经可以获取到Win10的ip, 这个时候就可以很方便的对各种环境变量进行设置, 因为V2ray的默认http端口为10809, socks5端口为10808, 所以可以直接设置环境变量 :
