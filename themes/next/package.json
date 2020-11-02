@@ -1,12 +1,12 @@
 {
   "name": "hexo-theme-next",
-  "version": "8.0.0-rc.3",
+  "version": "8.0.2",
   "description": "Elegant and powerful theme for Hexo.",
-  "main": "gulpfile.js",
+  "main": "package.json",
   "scripts": {
-    "test": "gulp",
-    "eslint": "eslint source/js scripts/",
-    "stylint": "stylint source/css/"
+    "eslint": "eslint scripts/ source/js test/",
+    "stylint": "stylint source/css/",
+    "test": "mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,14 +24,19 @@
   },
   "homepage": "https://theme-next.js.org",
   "devDependencies": {
-    "eslint": "7.1.0",
-    "eslint-config-theme-next": "1.1.4",
-    "gulp": "4.0.2",
-    "gulp-shell": "0.8.0",
+    "@next-theme/eslint-config": "0.0.1",
+    "chai": "4.2.0",
+    "eslint": "7.12.1",
+    "hexo": "5.2.0",
+    "hexo-renderer-marked": "3.3.0",
+    "husky": "4.3.0",
     "js-yaml": "3.14.0",
+    "mocha": "8.2.0",
     "stylint": "2.0.0"
   },
-  "engines": {
-    "node": ">=10.9.0"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint && npm test"
+    }
   }
 }

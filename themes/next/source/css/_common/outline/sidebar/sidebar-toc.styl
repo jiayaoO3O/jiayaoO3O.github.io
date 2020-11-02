@@ -12,8 +12,7 @@
     }
 
     a {
-      transition-property: all;
-      the-transition();
+      transition: all $transition-ease;
     }
   }
 
@@ -21,7 +20,6 @@
     line-height: 1.8;
     overflow: hidden;
     text-overflow: ellipsis;
-    // text-align: justify;
 
     if (!hexo-config('toc.wrap')) {
       white-space: nowrap;

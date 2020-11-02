@@ -1,24 +1,13 @@
 .back-to-top {
-  background: $b2t-bg-color;
   bottom: $b2t-position-bottom;
   box-sizing: border-box;
   color: $b2t-color;
-  cursor: pointer;
-  left: $b2t-position-right;
-  opacity: $b2t-opacity;
   padding: 0 6px;
-  position: fixed;
-  transition-property: bottom;
-  z-index: $zindex-3;
+  transition: bottom $transition-ease;
+  sidebar-toggle();
 
-  if (hexo-config('back2top.scrollpercent')) {
-    width: initial;
-  } else {
+  if (!hexo-config('back2top.scrollpercent')) {
     width: 24px;
-
-    span {
-      display: none;
-    }
   }
 
   &:hover {
@@ -27,10 +16,5 @@
 
   &.back-to-top-on {
     bottom: $b2t-position-bottom-on;
-  }
-
-  +tablet-mobile() {
-    left: $b2t-position-right-mobile;
-    opacity: $b2t-opacity-hover;
   }
 }

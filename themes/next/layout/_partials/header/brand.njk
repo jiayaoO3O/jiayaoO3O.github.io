@@ -2,34 +2,28 @@
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="{{ __('accessibility.nav_toggle') }}">
       {%- if theme.menu %}
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
       {%- endif %}
     </div>
   </div>
 
-  <div class="site-meta{%- if theme.custom_logo %} custom-logo{%- endif %}">
+  <div class="site-meta">
     {%- if theme.custom_logo and theme.scheme === 'Muse' %}
-      <div class="site-meta-headline">
-        <a>
-          <img class="custom-logo-image" src="{{ theme.custom_logo }}" alt="{{ title }}">
-        </a>
-      </div>
+      <img class="custom-logo-image" src="{{ url_for(theme.custom_logo) }}" alt="{{ title }}">
     {%- endif %}
 
     <a href="{{ config.root }}" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">{{ title }}</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
     {%- if subtitle %}
       <p class="site-subtitle" itemprop="description">{{ subtitle }}</p>
     {%- endif %}
     {%- if theme.custom_logo and (theme.scheme === 'Gemini' or theme.scheme === 'Pisces') %}
-      <a>
-        <img class="custom-logo-image" src="{{ theme.custom_logo }}" alt="{{ title }}">
-      </a>
+      <img class="custom-logo-image" src="{{ url_for(theme.custom_logo) }}" alt="{{ title }}">
     {%- endif %}
   </div>
 

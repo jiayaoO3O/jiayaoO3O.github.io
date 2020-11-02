@@ -10,11 +10,7 @@ function njkCompile(data) {
   const env = nunjucks.configure(templateDir, {
     autoescape: false
   });
-  env.addFilter('attr', (dictionary, key, value) => {
-    dictionary[key] = value;
-    return dictionary;
-  });
-  env.addFilter('json', dictionary => {
+  env.addFilter('safedump', dictionary => {
     if (typeof dictionary !== 'undefined' && dictionary !== null) {
       return JSON.stringify(dictionary);
     }
@@ -32,7 +28,13 @@ njkRenderer.compile = function(data) {
   const compiledTemplate = njkCompile(data);
   // Need a closure to keep the compiled template.
   return function(locals) {
-    return compiledTemplate.render(locals);
+    let result = '';
+    try {
+      result = compiledTemplate.render(locals);
+    } catch (error) {
+      hexo.log.error(error);
+    }
+    return result;
   };
 };
 

@@ -1,9 +1,17 @@
 .site-meta {
   flex-grow: 1;
-  text-align: $site-meta-text-align;
+  text-align: center;
 
   +mobile() {
     text-align: center;
+  }
+}
+
+.custom-logo-image {
+  margin-top: 20px;
+
+  +tablet-mobile() {
+    display: none;
   }
 }
 
@@ -11,9 +19,7 @@
   border-bottom: none;
   color: var(--brand-color);
   display: inline-block;
-  line-height: $font-size-title;
   padding: 0 40px;
-  position: relative;
 
   &:hover {
     color: var(--brand-hover-color);
@@ -34,10 +40,6 @@
 }
 
 .use-motion {
-  .brand {
-    opacity: 0;
-  }
-
   .site-title, .site-subtitle, .custom-logo-image {
     opacity: 0;
     position: relative;

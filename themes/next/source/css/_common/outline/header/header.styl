@@ -1,20 +1,20 @@
 // Header Section
 // --------------------------------------------------
+.headband {
+  background: $headband-bg;
+  height: $headband-height;
+
+  +tablet-mobile() {
+    display: none;
+  }
+}
+
 .header {
   background: $head-bg;
 }
 
 .header-inner {
-  margin: 0 auto;
-  width: $content-desktop;
-
-  +desktop-large() {
-    width: $content-desktop-large;
-  }
-
-  +desktop-largest() {
-    width: $content-desktop-largest;
-  }
+  main-container();
 }
 
 .site-brand-container {
@@ -23,7 +23,12 @@
   padding: 0 10px;
 }
 
-@import 'headerband';
+.use-motion {
+  .header, .site-brand-container .toggle {
+    opacity: 0;
+  }
+}
+
 @import 'site-meta';
 @import 'site-nav';
 @import 'menu';

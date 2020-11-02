@@ -1,22 +1,16 @@
 .site-state {
-  display: flex;
-  justify-content: center;
+  flex-wrap();
   line-height: 1.4;
-  margin-top: 10px;
-  overflow: hidden;
-  text-align: center;
-  white-space: nowrap;
 }
 
 .site-state-item {
+  // Fix issue #103
+  // The click area of the link becomes smaller
   padding: 0 15px;
-
-  &:not(:first-child) {
-    border-left: 1px solid $site-state-item-border-color;
-  }
 
   a {
     border-bottom: none;
+    display: block;
   }
 }
 
@@ -24,7 +18,6 @@
   display: block;
   font-size: $site-state-item-count-font-size;
   font-weight: 600;
-  text-align: center;
 }
 
 .site-state-item-name {

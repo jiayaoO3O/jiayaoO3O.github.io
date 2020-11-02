@@ -1,8 +1,7 @@
 .reward-container {
-  margin: 20px auto;
-  padding: 10px 0;
+  margin: $post-card-margin;
+  padding: 1em 0;
   text-align: center;
-  width: 90%;
 
   button {
     background: transparent;
@@ -13,8 +12,8 @@
     line-height: 2;
     outline: 0;
     padding: 0 15px;
+    transition: all $transition-ease;
     vertical-align: text-top;
-    the-transition();
 
     &:hover {
       background: $sidebar-highlight;
@@ -24,8 +23,29 @@
   }
 }
 
-#qr {
+.post-reward {
+  display: none;
   padding-top: 20px;
+
+  &.active {
+    display: block;
+  }
+
+  div {
+    display: inline-block;
+
+    span {
+      display: block;
+    }
+
+    if (hexo-config('reward_settings.animation')) {
+      &:hover span {
+        animation: next-roll .1s infinite linear;
+        // The animation may affect :hover of img in dark mode
+        pointer-events: none;
+      }
+    }
+  }
 
   img {
     display: inline-block;
@@ -33,20 +53,14 @@
     max-width: 100%;
     width: 180px;
   }
+}
 
-  if (hexo-config('reward_settings.animation')) {
-    div:hover p {
-      animation: roll .1s infinite linear;
-    }
+@keyframes next-roll {
+  from {
+    transform: rotateZ(30deg);
+  }
 
-    @keyframes roll {
-      from {
-        transform: rotateZ(30deg);
-      }
-
-      to {
-        transform: rotateZ(-30deg);
-      }
-    }
+  to {
+    transform: rotateZ(-30deg);
   }
 }
