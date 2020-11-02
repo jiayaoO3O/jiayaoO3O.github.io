@@ -282,6 +282,14 @@ docker run --name rrshare -d -p 3001:3001 -v /home/jiayao/Videos:/opt/work/store
 
 > 搭建完发现官方已经废弃这个客户端了, 登陆上去啥都看不到, 也搜索不出来数据, 可惜了.
 
+## 部署qbittorrent
+
+qbittorrent是一个bt下载器, 好用, 虽然默认界面略丑, 但是绝对当得上"拿钱办事"四个字.
+
+```shell
+docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -e UMASK_SET=022 -e WEBUI_PORT=8080 -p 6881:6881 -p 6881:6881/udp -p 8080:8080 -v /mnt/disk-alpha/Docker/qbittorrent:/config -v /mnt/disk-alpha/Downloads:/downloads --restart unless-stopped linuxserver/qbittorrent
+```
+
 ## 配置硬盘开机自动挂载
 
 因为系统是安装在240G的固态上的, 而电影都是放在1T固态硬盘上的, 所以需要让硬盘开机自动挂载, 但是惊喜的是, Ubuntu 20.04桌面版附带的"磁盘"软件是内置挂载磁盘管理功能的, 只要鼠标点击设置即可配置硬盘开机挂载, 这里就不上图了.
