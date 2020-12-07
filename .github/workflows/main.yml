@@ -24,7 +24,6 @@ jobs:
           node-version: '12'
           check-latest: true
       - run: npm install hexo-cli -g
-      - run: npm outdated
       - run: npm install
       - run: hexo version
 #       - name: Install Hexo
