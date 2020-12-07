@@ -24,9 +24,8 @@ jobs:
           node-version: 12.x
       - name: Install Hexo
         run: |
-          rm -rf /opt/hostedtoolcache/node
-          rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           npm install hexo-cli -g
+          npm outdated
           npm i
           hexo version
       - name: Deploy Hexo
