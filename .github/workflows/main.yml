@@ -18,16 +18,21 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
-      - name: Install Node.js 12
-        uses: actions/setup-node@v1
+      - name: Install Node.js 12 and Hexo
+        uses: actions/setup-node@v2-beta
         with:
-          node-version: 12.x
-      - name: Install Hexo
-        run: |
-          npm install hexo-cli -g
-          npm outdated
-          npm i
-          hexo version
+          node-version: '12'
+          check-latest: true
+      - run: npm install hexo-cli -g
+      - run: npm outdated
+      - run: npm install
+      - run: hexo version
+#       - name: Install Hexo
+#         run: |
+#           npm install hexo-cli -g
+#           npm outdated
+#           npm i
+#           hexo version
       - name: Deploy Hexo
         env:
           TZ: Asia/Shanghai
