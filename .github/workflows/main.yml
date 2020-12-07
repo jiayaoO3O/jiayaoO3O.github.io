@@ -24,7 +24,7 @@ jobs:
           node-version: 12.x
       - name: Install Hexo
         run: |
-          npm i -g hexo-cli
+          npm install hexo-cli -g
           npm i
           hexo version
       - name: Deploy Hexo
