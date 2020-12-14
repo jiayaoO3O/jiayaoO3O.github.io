@@ -24,8 +24,9 @@ jobs:
           node-version: '12'
           check-latest: true
       - run: rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
+      - run: ls
       - run: npm install hexo-cli -g
-#       - run: npm install
+      - run: rm -rf node_modules && npm install --force
       - run: hexo version
 #       - name: Install Hexo
 #         run: |
