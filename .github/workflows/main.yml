@@ -9,15 +9,15 @@ jobs:
         with:
           node-version: '12'
           check-latest: true
-      - run: rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io
       - run: pwd
       - run: npm install hexo-cli -g
       - run: npm install --force
       - run: hexo version
+      - run: hexo init
       - name: 上传结果
         uses: actions/upload-artifact@v2.2.2
         with:
             # Artifact name
             name: hexo
             # A file, directory or wildcard pattern that describes what to upload
-            path: /home/runner/work/jiayaoO3O.github.io
+            path: /home/runner/work
