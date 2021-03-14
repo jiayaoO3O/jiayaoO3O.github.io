@@ -4,39 +4,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Blog Branche
-        uses: actions/checkout@v2
-        with: 
-          ref: Blog
-      - name: Set Git Config
-        env:
-          ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.name 'jiayaoO3O'
-          git config --global user.email 'jiayao3.14@outlook.com'
       - name: Install Node.js 12 and Hexo
         uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
           check-latest: true
-      - run: rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
+      - run: rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io
       - run: ls
       - run: npm install hexo-cli -g
-      - run: rm -rf node_modules && npm install --force
+      - run: npm install --force
       - run: hexo version
-#       - name: Install Hexo
-#         run: |
-#           npm install hexo-cli -g
-#           npm outdated
-#           npm i
-#           hexo version
-      - name: Deploy Hexo
-        env:
-          TZ: Asia/Shanghai
-        run: |
-          date
-          hexo g -d
+      - name: 上传结果
+        uses: actions/upload-artifact@v2.2.2
+        with:
+            # Artifact name
+            name: hexo
+            # A file, directory or wildcard pattern that describes what to upload
+            path: /home/runner/work/jiayaoO3O.github.io
