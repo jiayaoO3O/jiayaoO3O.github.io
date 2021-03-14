@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: '12'
           check-latest: true
-      - run: touch /home/runner/work/tmp
+      - run: mkdir /home/runner/work/tmp
       - run: cd /home/runner/work/tmp
       - run: pwd
       - run: npm install hexo-cli -g
