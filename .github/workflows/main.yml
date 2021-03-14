@@ -10,11 +10,13 @@ jobs:
           node-version: '12'
           check-latest: true
       - run: mkdir /home/runner/work/tmp
-      - run: cd /home/runner/work/tmp
-      - run: pwd
       - run: npm install hexo-cli -g
       - run: hexo version
-      - run: hexo init
+      - run: hexo init /home/runner/work/tmp
+      - run: npm install
+      - run: cd /home/runner/work/tmp
+      - run: ls -l
+      - run: pwd
       - name: 上传结果
         uses: actions/upload-artifact@v2.2.2
         with:
