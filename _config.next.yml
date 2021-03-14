@@ -11,7 +11,7 @@
 
 # Allow to cache content generation.
 cache:
-  enable: true
+  enable: false
 
 # Remove unnecessary files after hexo generate.
 minify: true
@@ -83,8 +83,8 @@ menu:
   home: / || fa fa-home
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
-  #categories: /categories/ || fa fa-th
-  archives: /archives/ || fa fa-archive
+  categories: /categories/ || fa fa-th
+  # archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
@@ -499,18 +499,18 @@ math:
   every_page: true
 
   mathjax:
-    enable: true
+    enable: false
     # Available values: none | ams | all
-    tags: all
+    tags: none
 
   katex:
-    enable: false
+    enable: true
     # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex
     copy_tex: false
 
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
-pjax: true
+pjax: false
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
