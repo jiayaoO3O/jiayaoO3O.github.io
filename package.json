@@ -23,6 +23,6 @@
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
     "hexo-generator-sitemap": "^2.0.0",
-    "hexo-filter-mathjax":"^0.7.0"
+    "hexo-renderer-pandoc": "^0.3.0"
   }
 }
