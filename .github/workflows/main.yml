@@ -25,7 +25,7 @@ jobs:
           check-latest: true
       - name: Install Pandoc
         run: |
-          curl -s -L https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz | tar xvzf .
+          curl -s -L https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz | tar xvzf - -C .
       - run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           ls
