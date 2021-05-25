@@ -23,13 +23,13 @@ jobs:
         with:
           node-version: '12'
           check-latest: true
-      - name: Install pandoc
-        uses: docker://pandoc/core:2.9
-        with:
-          args: "--help"
+      - name: Install Pandoc
+        run: |
+          curl -s -L https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz | tar xvzf .
       - run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           ls
+          export PATH="$PATH:./pandoc-2.13/bin"
           npm install hexo-cli -g
           npm install
           hexo version
