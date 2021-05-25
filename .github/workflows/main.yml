@@ -23,6 +23,10 @@ jobs:
         with:
           node-version: '12'
           check-latest: true
+      -name: Install pandoc
+        uses: docker://pandoc/core:2.9
+        with:
+          args: "--help"
       - run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           ls
