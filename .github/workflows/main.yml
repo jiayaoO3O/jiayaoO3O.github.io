@@ -33,4 +33,5 @@ jobs:
         env:
           TZ: Asia/Shanghai
         run: |
+          hexo clean
           hexo g -d

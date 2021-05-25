@@ -873,12 +873,11 @@ vendors:
 
   # MathJax
   mathjax:
-    tags: all # 或 'ams' 或 'all'
+    tags: ams # 或 'ams' 或 'all'
     single_dollars: true # 启用单个美元符号作为内联（行内）数学公式定界符
     cjk_width: 0.9 # 相对 CJK 字符宽度
     normal_width: 0.6 # 相对正常（等宽）宽度
     append_css: true # 将 CSS 添加到每个页面
-    every_page: true #
 
   # KaTeX
   katex:
