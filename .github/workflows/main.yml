@@ -25,15 +25,12 @@ jobs:
           check-latest: true
       - name: Install Pandoc
         run: |
-          # wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb
-          # sudo dpkg -i ./*.deb
-          wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-linux-amd64.tar.gz
-          tar xvzf ./*.tar.gz
+          wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb
+          sudo dpkg -i ./*.deb
+          pandoc -v
       - run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           ls
-          export PATH="$PATH:./pandoc-2.13/bin"
-          pandoc -v
           npm install hexo-cli -g
           npm install
           hexo version
