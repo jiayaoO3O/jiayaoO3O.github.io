@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '12'
           check-latest: true
-      -name: Install pandoc
+      - name: Install pandoc
         uses: docker://pandoc/core:2.9
         with:
           args: "--help"
