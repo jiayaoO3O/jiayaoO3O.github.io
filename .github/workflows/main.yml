@@ -18,7 +18,7 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name 'jiayaoO3O'
           git config --global user.email 'jiayao3.14@outlook.com'
-      - name: Install Node.js 12 and Hexo
+      - name: Install Node.js 12
         uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
@@ -28,9 +28,12 @@ jobs:
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb
           sudo dpkg -i ./*.deb
           pandoc -v
-      - run: |
+      - name: Clean node_modules 
+        run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
           ls
+      - name: Install Hexo
+        run: |    
           npm install hexo-cli -g
           npm install
           hexo version
