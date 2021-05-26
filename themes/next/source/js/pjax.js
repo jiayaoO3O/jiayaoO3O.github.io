@@ -1,8 +1,9 @@
-<script>
-var pjax = new Pjax({
+/* global NexT, CONFIG, Pjax */
+
+const pjax = new Pjax({
   selectors: [
     'head title',
-    '.page-configurations',
+    'script[type="application/json"]',
     '.main-inner',
     '.post-toc-wrap',
     '.languages',
@@ -10,12 +11,11 @@ var pjax = new Pjax({
   ],
   analytics: false,
   cacheBust: false,
-  scrollRestoration: false,
-  scrollTo: !CONFIG.bookmark.enable
+  scrollTo : !CONFIG.bookmark.enable
 });
 
 document.addEventListener('pjax:success', () => {
-  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax]'));
   NexT.boot.refresh();
   // Define Motion Sequence & Bootstrap Motion.
   if (CONFIG.motion.enable) {
@@ -30,4 +30,3 @@ document.addEventListener('pjax:success', () => {
   document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
   NexT.utils.updateSidebarPosition();
 });
-</script>

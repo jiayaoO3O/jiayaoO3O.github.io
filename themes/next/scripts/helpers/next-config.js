@@ -5,7 +5,7 @@
 const { parse } = require('url');
 
 /**
- * Export theme config to js
+ * Export theme config
  */
 hexo.extend.helper.register('next_config', function() {
   const { config, theme, url_for, __ } = this;
@@ -45,8 +45,19 @@ hexo.extend.helper.register('next_config', function() {
     exportConfig.path = url_for(config.search.path);
     exportConfig.localsearch = theme.local_search;
   }
-  return `<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = ${JSON.stringify(exportConfig)};
-  </script>`;
+  return exportConfig;
+});
+
+hexo.extend.helper.register('next_config_unique', function() {
+  const { page, is_home, is_post } = this;
+  return {
+    sidebar  : page.sidebar || '',
+    isHome   : is_home(),
+    isPost   : is_post(),
+    lang     : page.lang,
+    comments : page.comments || '',
+    permalink: page.permalink || '',
+    path     : page.path || '',
+    title    : page.title || ''
+  };
 });

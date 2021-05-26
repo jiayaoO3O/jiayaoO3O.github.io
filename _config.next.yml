@@ -352,6 +352,13 @@ mobile_layout_economy: true
 # Android Chrome header panel color ($brand-bg / $headband-bg => $black-deep).
 android_chrome_color: "#222"
 
+# Override browsers' default behavior.
+body_scrollbar:
+  # Place the scrollbar over the content.
+  overlay: true
+  # Present the scrollbar even if the content is not overflowing.
+  stable: true
+
 codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
@@ -377,8 +384,11 @@ back2top:
 # Reading progress bar
 reading_progress:
   enable: false
+    # Available values: left | right
+  startAt: left
   # Available values: top | bottom
   position: top
+  reversed: false
   color: "#37c6c0"
   height: 3px
 
@@ -510,7 +520,7 @@ math:
 
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
-pjax: true
+pjax: false
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
@@ -550,6 +560,7 @@ quicklink:
 
   # For more flexibility you can add some patterns (RegExp, Function, or Array) to ignores.
   # See: https://github.com/GoogleChromeLabs/quicklink#custom-ignore-patterns
+  # This option is deprecated. Use `CONFIG.quicklink.ignores` in your custom scripts instead.
   ignores:
 
 
@@ -739,7 +750,7 @@ local_search:
   # Unescape html strings to the readable one.
   unescape: false
   # Preload the search data when the page loads.
-  preload: true
+  preload: false
 
 
 # ---------------------------------------------------------------
