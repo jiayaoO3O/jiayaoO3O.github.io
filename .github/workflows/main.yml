@@ -28,6 +28,7 @@ jobs:
           wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb
           sudo dpkg -i ./*.deb
           pandoc -v
+          rm -rf ./*.deb
       - name: Clean node_modules 
         run: |
           rm -rf /home/runner/work/jiayaoO3O.github.io/jiayaoO3O.github.io/node_modules
