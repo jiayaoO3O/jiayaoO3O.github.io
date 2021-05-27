@@ -17,6 +17,8 @@ docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasti
 
 成功之后ES会以单节点模式启动.
 
+<!-- more -->
+
 ### 使用多节点模式
 
 如果想在生产环境使用多节点模式, 可以使用docker compose :
