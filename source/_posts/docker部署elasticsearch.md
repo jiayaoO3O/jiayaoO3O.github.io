@@ -106,11 +106,11 @@ volumes数据卷也可以直接绑定本地目录.
 
 ### 生产模式配置服务器
 
-```sh
+```shell
 sysctl -w vm.max_map_count=262144
 ```
 
-```sh
+```shell
 sudo swapoff -a
 ```
 

@@ -14,7 +14,7 @@ tar -zxvf ./*.tar.gz
 
 ## frpc.ini
 
-```
+```properties
 [common]
 server_addr = xx.xx.xx.xx
 server_port = 7000
@@ -34,7 +34,7 @@ remote_port = 3389
 
 ## frps_full.ini
 
-```
+```properties
 dashboard_user = xxx
 dashboard_pwd = xxxxx
 token = xxxxx

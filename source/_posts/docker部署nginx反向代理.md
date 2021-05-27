@@ -9,7 +9,7 @@ categories: [技术]
 
 通过nginx官方镜像创建nginx.conf模板, 然后在该模板上进行修改即可
 
-```
+```properties
 user  nginx;
 worker_processes  auto;
 
