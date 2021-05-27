@@ -822,8 +822,8 @@ mermaid:
 # Use Animate.css to animate everything.
 # For more information: https://animate.style
 motion:
-  enable: true
-  async: true
+  enable: false
+  async: false
   transition:
     # All available transition variants: https://theme-next.js.org/animate/
     post_block: fadeIn
