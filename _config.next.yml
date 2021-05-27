@@ -829,7 +829,7 @@ motion:
     post_block: none
     post_header: none
     post_body: none
-    coll_header: fadeInLeft
+    coll_header: none
     # Only for Pisces | Gemini.
     sidebar: fadeInUp
 
