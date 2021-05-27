@@ -836,7 +836,7 @@ motion:
 # Progress bar in the top during page loading.
 # For more information: https://github.com/rstacruz/nprogress
 nprogress:
-  enable: true
+  enable: false
   spinner: true
 
 # Canvas ribbon
