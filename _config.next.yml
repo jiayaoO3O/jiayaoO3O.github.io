@@ -826,17 +826,17 @@ motion:
   async: true
   transition:
     # All available transition variants: https://theme-next.js.org/animate/
-    post_block: fadeInDown
-    post_header: fadeInDown
-    post_body: fadeInDown
-    coll_header: fadeInDown
+    post_block: none
+    post_header: none
+    post_body: none
+    coll_header: none
     # Only for Pisces | Gemini.
-    sidebar: fadeInDown
+    sidebar: none
 
 # Progress bar in the top during page loading.
 # For more information: https://github.com/rstacruz/nprogress
 nprogress:
-  enable: false
+  enable: true
   spinner: true
 
 # Canvas ribbon
