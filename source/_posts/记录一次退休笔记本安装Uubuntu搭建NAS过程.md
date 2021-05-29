@@ -92,6 +92,14 @@ HandleLidSwitch=ignore
 sudo service systemd-logind restart
 ```
 
+## 关闭终端响铃
+
+```shell
+sudo nano /etc/inputrc
+set bell-style off
+```
+
+
 ## 开启远程ssh连接
 
 Ubuntu20.04默认没有安装sshd, 这个时候只要在终端输入sshd, 系统会提示没有安装sshd, 是否需要安装, 并且连命令都已经提示出来了, 执行下方命令安装sshd :
