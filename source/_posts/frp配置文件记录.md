@@ -53,3 +53,58 @@ allow_ports = 2000-50000
 
 下面两个插件如果用不上需要手动注释.
 
+## 安装frp为systemd服务
+
+编辑对应的service文件, 如果需要配置服务端, 则编辑frpc.service, 如果需要配置客户端, 则编辑frps.service
+
+```shell
+nano ./systemd/frpc.service
+```
+
+```properties
+[Unit]
+Description=Frp Client Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+
+[Install]
+WantedBy=multi-user.target
+```
+
+这里要将User=nobody改成对应的用户名.
+
+移动执行文件frpc和配置文件frpc.ini到对应的目录
+
+```shell
+sudo cp ../frpc /usr/bin
+sudo mkdir /etc/frp
+sudo cp ../frpc.ini /etc/frp/frpc.ini
+```
+
+复制服务文件到systemd目录
+
+```shell
+sudo cp ./frpc.service /etc/systemd/system/
+sudo systemctl daemon-reload
+```
+
+启动服务
+
+```shell
+sudo service frpc start
+sudo service frpc status
+```
+
+如果能成功启动, 则将服务配置为开机启动
+
+```shell
+sudo systemctl enable frpc
+```
+
