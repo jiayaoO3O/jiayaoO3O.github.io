@@ -12,7 +12,7 @@ categories: [技术]
 在本地或者测试环境可以使用单节点模式, 简单方便
 
 ```shell
-docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -d -e discovery.type=single-node -e ELASTIC_PASSWORD=xxxxx -e xpack.security.enabled=true elasticsearch:7.13
+docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -d -e discovery.type=single-node -e ELASTIC_PASSWORD=xxxxx -e xpack.security.enabled=true docker.elastic.co/elasticsearch/elasticsearch:7.13.0
 ```
 
 成功之后ES会以单节点模式启动.
@@ -21,7 +21,35 @@ docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasti
 
 ### 使用多节点模式
 
-如果想在生产环境使用多节点模式, 可以使用docker compose :
+如果想在生产环境使用多节点模式, 可以使用以下命令 :
+```shell
+docker run --name es01 \
+ --network=elastic \
+ -v /path/to/elastic/elasticsearch/es01:/usr/share/elasticsearch/data \
+ -p 9200:9200 -p 9300:9300 \
+ -d \
+ -e node.name=es01 \
+ -e cluster.name=es-cluster \
+ -e discovery.seed_hosts=es02 \
+ -e cluster.initial_master_nodes=es01,es02 \
+ -e ELASTIC_PASSWORD=xxxx \
+ -e xpack.security.enabled=true \
+ docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+```
+
+```shell
+docker run --name es02 \
+ --network=elastic \
+ -v /path/to/jiayao/elastic/elasticsearch/es02:/usr/share/elasticsearch/data \
+ -d \
+ -e node.name=es02 \
+ -e cluster.name=es-cluster \
+ -e discovery.seed_hosts=es01 \
+ -e cluster.initial_master_nodes=es01,es02 \
+ docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+```
+
+也可以使用docker-compose :
 
 ```yaml
 version: '2.2'
@@ -117,7 +145,7 @@ sudo swapoff -a
 ## 部署kibana
 
 ```shell
-docker run --name kibana --net elastic -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" -e ELASTICSEARCH_PASSWORD=xxxxx -e ELASTICSEARCH_USERNAME=elastic -e xpack.security.enabled=true -d kibana:7.13
+docker run --name kibana --net elastic -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" -e ELASTICSEARCH_PASSWORD=xxxxx -e ELASTICSEARCH_USERNAME=elastic -e xpack.security.enabled=true -d docker.elastic.co/kibana/kibana:7.13.0
 ```
 
 ## 部署filebeat收集日志
