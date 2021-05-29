@@ -55,7 +55,7 @@ allow_ports = 2000-50000
 
 ## 安装frp为systemd服务
 
-编辑对应的service文件, 如果需要配置服务端, 则编辑frpc.service, 如果需要配置客户端, 则编辑frps.service
+编辑对应的service文件, 如果需要配置服务端, 则编辑frps.service, 如果需要配置客户端, 则编辑frpc.service
 
 ```shell
 nano ./systemd/frpc.service
