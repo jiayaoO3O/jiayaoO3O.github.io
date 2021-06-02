@@ -35,6 +35,8 @@ remote_port = 3389
 ## frps_full.ini
 
 ```properties
+#vhost_http_port = 80
+#vhost_https_port = 443
 dashboard_user = xxx
 dashboard_pwd = xxxxx
 token = xxxxx
