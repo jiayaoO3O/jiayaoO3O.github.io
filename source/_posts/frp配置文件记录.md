@@ -83,15 +83,15 @@ WantedBy=multi-user.target
 移动执行文件frpc和配置文件frpc.ini到对应的目录
 
 ```shell
-sudo cp ../frpc /usr/bin
+sudo cp ./frpc /usr/bin
 sudo mkdir /etc/frp
-sudo cp ../frpc.ini /etc/frp/frpc.ini
+sudo cp ./frpc.ini /etc/frp/frpc.ini
 ```
 
 复制服务文件到systemd目录
 
 ```shell
-sudo cp ./frpc.service /etc/systemd/system/
+sudo cp ./systemd/frpc.service /etc/systemd/system/
 sudo systemctl daemon-reload
 ```
 
