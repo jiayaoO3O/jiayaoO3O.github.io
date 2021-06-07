@@ -145,7 +145,7 @@ sudo swapoff -a
 ## 部署kibana
 
 ```shell
-docker run --name kibana --net elastic -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" -e ELASTICSEARCH_PASSWORD=xxxxx -e ELASTICSEARCH_USERNAME=elastic -e xpack.security.enabled=true -e xpack.fleet.agents.tlsCheckDisabled=true -e xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters" -d docker.elastic.co/kibana/kibana:7.13.0
+docker run --name kibana --net elastic -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" -e ELASTICSEARCH_PASSWORD=xxxxx -e ELASTICSEARCH_USERNAME=elastic -e xpack.security.enabled=true -e xpack.fleet.agents.tlsCheckDisabled=true -e xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters" -e i18n.locale=zh-CN -d docker.elastic.co/kibana/kibana:7.13.0
 ```
 
 ## 部署filebeat收集日志
