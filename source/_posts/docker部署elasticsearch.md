@@ -12,7 +12,7 @@ categories: [技术]
 在本地或者测试环境可以使用单节点模式, 简单方便
 
 ```shell
-docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -d -e discovery.type=single-node -e ELASTIC_PASSWORD=xxxxx -e xpack.security.enabled=true docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+docker run --name elasticsearch --net elastic -v /path/to/data:/usr/share/elasticsearch/data -p 9200:9200 -p 9300:9300 -d -e discovery.type=single-node -e ELASTIC_PASSWORD=xxxxx -e xpack.security.enabled=true -e xpack.security.authc.api_key.enabled=true docker.elastic.co/elasticsearch/elasticsearch:7.13.0
 ```
 
 成功之后ES会以单节点模式启动.
