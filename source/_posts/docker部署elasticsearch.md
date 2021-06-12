@@ -144,8 +144,20 @@ sudo swapoff -a
 
 ## 部署kibana
 
+注意, 在docker中如果想用-e参数将配置作为环境变量传入kibana中, 则所有的-e参数都是全大写且用下划线分割的：
 ```shell
-docker run --name kibana --net elastic -p 5601:5601 -e ELASTICSEARCH_HOSTS=http://elasticsearch:9200 -e ELASTICSEARCH_PASSWORD=xxxxx -e ELASTICSEARCH_USERNAME=elastic -e xpack.security.enabled=true -e xpack.fleet.agents.tlsCheckDisabled=true -e xpack.encryptedSavedObjects.encryptionKey=something_at_least_32_characters -e i18n.locale=zh-CN -d docker.elastic.co/kibana/kibana:7.13.0
+docker run --name kibana \
+  --net elastic \
+  -p 5601:5601 \
+  -e ELASTICSEARCH_HOSTS=http://elasticsearch:9200 \
+  -e ELASTICSEARCH_PASSWORD=xxxxxxxx \
+  -e ELASTICSEARCH_USERNAME=elastic \
+  -e XPACK_SECURITY_ENABLED=true \
+  -e XPACK_SECURITY_ENCRYPTIONKEY=something_at_least_32_characters \
+  -e XPACK_REPORTING_ENCRYPTIONKEY=something_at_least_32_characters \
+  -e XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=something_at_least_32_characters \
+  -e I18N_LOCALE=zh-CN \
+  -d docker.elastic.co/kibana/kibana:7.13.1
 ```
 
 ## 部署filebeat收集日志
