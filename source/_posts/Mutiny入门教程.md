@@ -93,7 +93,7 @@ Multi<String> event  = 查找数据库;
 
 **是, 又不是.**
 
-就最终返回的结果来看, 大家确实都可以看作是**List&lt;String&gt;**, 但是Multi自己会有一些Uni没有的功能, 和一些更复杂的方法, 例如Multi会带有**背压**.
+就最终返回的结果来看, 大家确实都可以看作是**List&lt;String&gt;**, 但是Multi自己会有一些Uni没有的功能, 和一些更复杂的方法, 因为Multi主要是用来处理数据流的, 例如Multi会带有**背压**.
 
 一般情况下使用简单的Uni就已经足够了.
 
@@ -114,7 +114,7 @@ apple.toLowerCase();
 log.info(apple); //肯定还是"APPLE"
 ```
 
-创建了一个字符串apple, 但是对它调用`toLowerCase()`之后, 只会产生一个新字符串, 并不会改变apple本身.
+创建了一个字符串apple, 但是对它调用`.toLowerCase()`之后, 只会产生一个新字符串, 并不会改变apple本身.
 
 Uni和Multi也一样, 对这个事件进行操作之后, 就会产生一个新的Uni或者Multi :
 
@@ -157,11 +157,11 @@ uni.subscribe().with(item -> System.out.println(item));//打印字符串
 
 例如上面这个例子, `uni.subscribe().with(item -> System.out.println(item));`这一行代码就表明了对这个uni感兴趣, 因为你想要打印这个字符串, 所以你订阅这个事件, **只有当你订阅了这个事件, 这个事件才会发生, 并且进行后面的字符串拼接, 字符串转大写等操作.**
 
-如果没有最后的这一行`subscribe()`, 那么虽然代码写了你要创建一个字符串事件, 并且想要拼接字符串, 然后全部转大写, **但是这一切都不会发生.**
+如果没有最后的这一行`.subscribe()`, 那么虽然代码写了你要创建一个字符串事件, 并且想要拼接字符串, 然后全部转大写, **但是这一切都不会发生.**
 
 那么有哪些行为可以表达我对这个事件感兴趣呢?
 
-1. 要么你直接在代码里写出来你想要`subscribe()`这个方法, 这表明你**主动**要订阅这个事件.
+1. 要么你直接在代码里写出来你想要`.subscribe()`这个方法, 这表明你**主动**要订阅这个事件.
 
 2. 要么你将这个事件最终返回到系统外部, 由系统自动帮你订阅这个消息 :
 
@@ -178,7 +178,7 @@ uni.subscribe().with(item -> System.out.println(item));//打印字符串
        }
    ```
 
-   这是一个接口, 只要程序接收到外部的**get**请求, 调用了这个接口, 就会返回一个Uni出去, 这里你会发现虽然我们没有调用`subscribe()`这个方法, 但是因为这里已经是系统的最外层了, 我们把uni通过接口返回出去之后, 系统就会自动帮我们订阅这个事件.
+   这是一个接口, 只要程序接收到外部的**get**请求, 调用了这个接口, 就会返回一个Uni出去, 这里你会发现虽然我们没有调用`.subscribe()`这个方法, 但是因为这里已经是系统的最外层了, 我们把uni通过接口返回出去之后, 系统就会自动帮我们订阅这个事件.
 
 所以说, 当你发现你的代码不生效的时候, 一定要看看是不是自己忘记订阅了.
 
@@ -204,7 +204,7 @@ Mutiny中, 发生一个事件会有两个途径 :
            .items("apple1", "apple2", "apple3");
    ```
    
-   上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件. 事件包装着的类型是String, 注意, 在Mutiny中, **事件包装着的那个那个东西有一个名称, 叫做item**, 中文翻译成啥都很别扭, 所以就叫item吧. 在上面的代码中, item就是一个字符串, 内容为"apple"
+   上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件. 事件包装着的类型是String, 注意, 在Mutiny中, **事件包装着的那个泛型有一个名称, 叫做item**, 中文翻译成啥都很别扭, 所以就叫item吧. 在上面的代码中, item就是一个字符串, 内容为**"apple"**
    
    ```java
    Uni<String> appleUni = Uni.createFrom().failure(new Exception("bad apple"));
@@ -212,7 +212,7 @@ Mutiny中, 发生一个事件会有两个途径 :
    Multi<String> appleMulti = Multi.createFrom().failure(new Exception("some bad apples"));
    ```
    
-   上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件, 里面装着的item是一个异常.
+   上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件, 里面装着的item是一个**异常**.
    
 2. 你调用某些方法, 例如查找数据库引发了一个事件.
 
@@ -239,7 +239,7 @@ appleUni.subscribe().with(log::info);
 
 ## 3.如何转换一个事件中的item?
 
-直到现在, 我们都一直在创建一个最简单的字符串Uni, 然后什么操作都没有进行直接就消费掉了, 但是这种行为就好比学习编程的时候打印一句"hello world", 对于实际开发肯定是没啥意义的, 所以接下来要讲的是, 当我得到一个**Uni&lt;String&gt;**之后, 要怎么对这个Uni的item进行变换呢?
+直到现在, 我们都一直在创建一个最简单的字符串Uni, 然后什么操作都没有进行直接就消费掉了, 但是这种行为就好比学习编程的时候打印一句**"hello world"**, 对于实际开发肯定是没啥意义的, 所以接下来要讲的是, 当我得到一个**Uni&lt;String&gt;**之后, 要怎么对这个Uni的item进行变换呢?
 
 这时候要使用`.onItem().transform()`方法 :
 
@@ -255,7 +255,7 @@ Uni<String> checkedAppleUni = appleUni.onItem()
 
 `.onItem()`表明了你要对item进行操作, 而`.transform()`表明了你想要对item进行转换.
 
-当你使用了transform后, 你需要传入一个`Function<? super T, ? extends R> mapper` 的lambda表达式作为入参, 这个表达式接收一个T范型, 并且返回一个你想要的R泛型,
+当你使用了transform后, 你需要传入一个`Function<? super T, ? extends R> mapper` 的lambda表达式作为入参, 这个表达式接收一个**T**范型, 并且返回一个你想要的**R**泛型,
 
 上面的代码表明, 你想要对appleUni内的item进行转换, **如果item等于"apple", 就将它转换成"good apple", 否则就转换为"bad apple".**
 
