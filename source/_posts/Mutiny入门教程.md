@@ -11,7 +11,7 @@ categories: [技术]
 
 ## 什么是Mutiny?
 
-[Mutiny](https://smallrye.io/smallrye-mutiny/)是一个事件驱动的, quarkus官方的java响应式编程库. 在quarkus框架中进行响应式编程开发, 指的就是通过Mutiny来包装, 观察, 处理事件.
+[Mutiny](https://smallrye.io/smallrye-mutiny/)是一个事件驱动的, quarkus官方的java响应式编程库. 在quarkus框架中进行响应式编程开发, 指的就是通过Mutiny来包装, 观察, 处理事件所产生的数据流.
 
 ## 如何学习?
 
