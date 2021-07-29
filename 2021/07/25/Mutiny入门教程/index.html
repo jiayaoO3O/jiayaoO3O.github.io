@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ArtificialIntelligence32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ArtificialIntelligence16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="5IoOHPeK1Gs6LKpb_pJOXhrUePDQUxzqf0hPjeAzdLo">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;jiayaoo3o.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;none&quot;,&quot;post_header&quot;:&quot;none&quot;,&quot;post_body&quot;:&quot;none&quot;,&quot;coll_header&quot;:&quot;none&quot;,&quot;sidebar&quot;:&quot;none&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="前言 本篇教程想要教会你如何使用quarkus的官方响应式编程库Mutiny, 并且学会如何在quarkus下进行响应式编程. 什么是Mutiny? Mutiny是一个事件驱动的, quarkus官方的java响应式编程库. 在quarkus框架中进行响应式编程开发, 指的就是通过Mutiny来包装, 观察, 处理事件所产生的数据流. 如何学习? 接下来我会用提问-解答的方式去讲解怎么学习使用Mu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mutiny入门教程">
+<meta property="og:url" content="http://jiayaoo3o.github.io/2021/07/25/Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="jiayaoO3O&#39;s Blog">
+<meta property="og:description" content="前言 本篇教程想要教会你如何使用quarkus的官方响应式编程库Mutiny, 并且学会如何在quarkus下进行响应式编程. 什么是Mutiny? Mutiny是一个事件驱动的, quarkus官方的java响应式编程库. 在quarkus框架中进行响应式编程开发, 指的就是通过Mutiny来包装, 观察, 处理事件所产生的数据流. 如何学习? 接下来我会用提问-解答的方式去讲解怎么学习使用Mu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smallrye.io/smallrye-mutiny/assets/images/event-invoke.png">
+<meta property="og:image" content="https://smallrye.io/smallrye-mutiny/assets/images/event-call.png">
+<meta property="og:image" content="https://smallrye.io/smallrye-mutiny/assets/images/transform-to-uni.png">
+<meta property="og:image" content="https://smallrye.io/smallrye-mutiny/assets/images/uni-transform-to-multi.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/22891632/114197582-152e7b80-9985-11eb-9e15-5aa7ea62933c.gif">
+<meta property="article:published_time" content="2021-07-24T16:24:00.000Z">
+<meta property="article:modified_time" content="2021-07-29T02:09:20.950Z">
+<meta property="article:author" content="jiayao">
+<meta property="article:tag" content="Quarkus">
+<meta property="article:tag" content="Mutiny">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smallrye.io/smallrye-mutiny/assets/images/event-invoke.png">
+
+
+<link rel="canonical" href="http://jiayaoo3o.github.io/2021/07/25/Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;jiayaoo3o.github.io&#x2F;2021&#x2F;07&#x2F;25&#x2F;Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;07&#x2F;25&#x2F;Mutiny入门教程&#x2F;&quot;,&quot;title&quot;:&quot;Mutiny入门教程&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Mutiny入门教程 | jiayaoO3O's Blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">jiayaoO3O's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">sudo reboot</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFmutiny"><span class="nav-text">什么是Mutiny?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0"><span class="nav-text">如何学习?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unit%E4%B8%8Emultit"><span class="nav-text">Uni&lt;T&gt;与Multi&lt;T&gt;?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6"><span class="nav-text">什么是事件?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2"><span class="nav-text">数据流又是什么呢?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uni%E5%92%8Cmulti%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-text">Uni和Multi的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-text">1.如何创建一个数据流?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A2%E9%98%85%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-text">2.如何订阅一个数据流?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84item"><span class="nav-text">3.如何转换一个数据流中的item?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BA%A7%E7%94%9F%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B9%8B%E5%90%8E%E5%81%9A%E6%9F%90%E4%BA%9B%E4%BA%8B%E6%83%85"><span class="nav-text">4.如何在产生一个数据流之后做某些事情?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2uni%E4%B8%BAmulti"><span class="nav-text">5.如何转换Uni为Multi?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%A4%B1%E8%B4%A5"><span class="nav-text">6.如何处理失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%A4%B1%E8%B4%A5%E9%87%8D%E8%AF%95"><span class="nav-text">7.如何进行失败重试?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF"><span class="nav-text">学海无涯</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiayao"
+      src="/images/pic.jpg">
+  <p class="site-author-name" itemprop="name">jiayao</p>
+  <div class="site-description" itemprop="description">重构！重构！重构！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jiayaoO3O" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jiayaoO3O" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jiayao3.14@outlook.com" title="E-Mail → jiayao3.14@outlook.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jiayaoo3o.github.io/2021/07/25/Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pic.jpg">
+      <meta itemprop="name" content="jiayao">
+      <meta itemprop="description" content="重构！重构！重构！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiayaoO3O's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mutiny入门教程<a href="https://github.com/jiayaoO3O/jiayaoO3O.github.io/blob/Blog/source/_posts/Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-25 00:24:00" itemprop="dateCreated datePublished" datetime="2021-07-25T00:24:00+08:00">2021-07-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-29 10:09:20" itemprop="dateModified" datetime="2021-07-29T10:09:20+08:00">2021-07-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言">前言</h2>
+<p>本篇教程想要教会你如何使用quarkus的官方响应式编程库Mutiny, 并且学会如何在quarkus下进行响应式编程.</p>
+<h2 id="什么是mutiny">什么是Mutiny?</h2>
+<p><a target="_blank" rel="noopener" href="https://smallrye.io/smallrye-mutiny/">Mutiny</a>是一个事件驱动的, quarkus官方的java响应式编程库. 在quarkus框架中进行响应式编程开发, 指的就是通过Mutiny来包装, 观察, 处理事件所产生的数据流.</p>
+<h2 id="如何学习">如何学习?</h2>
+<p>接下来我会用<strong>提问-解答</strong>的方式去讲解怎么学习使用Mutiny, 只要一步步跟着问题去思考, 就可以学会使用Mutiny.</p>
+<span id="more"></span>
+<h2 id="unit与multit">Uni&lt;T&gt;与Multi&lt;T&gt;?</h2>
+<p>理解Uni和Multi是什么, 是学习Mutiny和响应式编程中最重要的事情.</p>
+<p>什么是Uni和Multi? 它们指的是<code>某个行为或动作引起的事件所产生的数据流, 泛型T表示这个数据流的数据类型</code>, 这一句话是理解整个响应式编程的重点.</p>
+<h2 id="什么是事件">什么是事件?</h2>
+<p>发生了某一个行为或者动作, 就可以代表为一个事件, 例如 :</p>
+<ul>
+<li>你<strong>点击</strong>了一下鼠标, 点击鼠标这个行为, 就是一个事件.</li>
+<li>你<strong>拿起</strong>一台手机这个行为, 就是一个事件.</li>
+<li>你<strong>敲击</strong>一下键盘这个行为, 就是一个事件.</li>
+</ul>
+<p>以上三点, 都可以概括成<strong>产生了一个"你做了某事"的事件</strong>.</p>
+<h2 id="数据流又是什么呢">数据流又是什么呢?</h2>
+<p>它是指某个事件所产生的结果, <strong>泛型T</strong>就是这个事件所产生的数据流的类型.</p>
+<p>例如在你<strong>拿起一台手机</strong>这个事件中, 返回的结果就是一个数据流, 一个手机就可以看作是数据流里的一个数据, 所以伪代码就是 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;手机&gt; event = 你拿起一台手机;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;手机&gt; event = 你拿起一台手机;</span><br></pre></td></tr></table></figure>
+<p>你去查找数据库, 这个事件得到一个数据类型为字符串的数据流 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; event  = 查找数据库;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;String&gt; event  = 查找数据库;</span><br></pre></td></tr></table></figure>
+<p>又或者, 你去查找数据库, 这个事件得到一个数据类型为Long的数据流 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;Long&gt; event = 查找数据库;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;Long&gt; event = 查找数据库;</span><br></pre></td></tr></table></figure>
+<p>又或者, 你做的这个行为没有产生什么东西, 返回一个Void的数据流 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;Void&gt; event = 做了啥事情返回一个<span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;Void&gt; event = 做了啥事情返回一个<span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>这个时候, 应该就可以理解什么是Uni和Multi了, <strong>他们就是代指某个事件所产生的数据流, 而里面的泛型就是这个数据流的类型</strong>.</p>
+<p>那么到了这里, 你自然而然就会问, <strong>这个Uni和Multi有什么区别呢?</strong></p>
+<p>区别就是, <strong>Uni代表着这个事件返回的数据流内有0个或1个T类型数据, 而Multi代表这个事件返回的数据流内有0个或N多个T类型数据</strong>, 根据上面的例子 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;手机&gt; event = 你拿起一台手机;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;手机&gt; event = 你拿起一台手机;</span><br></pre></td></tr></table></figure>
+<p><strong>Uni&lt;手机&gt;</strong>代表了这个事件要么失败了, 数据流内是一个异常, 要么事件成功了, 数据流内是一个手机.</p>
+<p><strong>Multi&lt;手机&gt;</strong>代表了这个事件要么失败了, 数据流内是一个异常, 要么事件成功了, 数据流内是N个 (1个或多个都可以)手机.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; event  = 查找数据库;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;String&gt; event  = 查找数据库;</span><br></pre></td></tr></table></figure>
+<p><strong>Uni&lt;String&gt;</strong>代表了查找数据库这个事件产生的数据流要么是一个失败 (抛出异常), 要么是一个String(注意这个Stirng可能为null, 因为数据库返回的就是null, 没查到).</p>
+<p><strong>Multi&lt;String&gt;</strong>代表了查找数据库这个事件产生的数据流要么是一个失败 (抛出异常), 要么是N个String(注意这个Stirng可能为null, 因为数据库返回的就是null, 没查到)</p>
+<p>那你自然而然又会问, <strong>那是不是说Uni&lt;List&lt;String&gt;&gt;和Multi&lt;String&gt;是相同的的意思呢?</strong></p>
+<p><strong>不是</strong></p>
+<p><strong>Uni&lt;List&lt;String&gt;&gt;</strong>代表着一个数据流里面有一个元素, 这个元素是<strong>List&lt;String&gt;</strong>.</p>
+<p><strong>Multi&lt;String&gt;</strong>代表着数据流里面有N个元素, 这些元素都是<strong>String</strong>类型.</p>
+<p>一般情况下使用简单的Uni就已经足够了.</p>
+<h2 id="uni和multi的特性">Uni和Multi的特性</h2>
+<p>Uni和Multi有两个至关重要的特性, 必须要记住的 :</p>
+<ol type="1">
+<li>数据流是不可变的, <strong>对这个数据流的任何操作都会返回一个新的数据流</strong>.</li>
+<li>对数据流的操作是惰性的, <strong>必须要有人消费 (或者表达为监听, 订阅)这个数据流, 这个对数据流的操作才会真正地发生</strong>.</li>
+</ol>
+<p>先来解释第一点, 这个应该比较好理解, 因为大家经常接触类似的东西, 就是String.</p>
+<p>String本身一旦创建, 就是不可变的了, 对一个字符串进行修改, 都会产生一个新的字符串, 原本的旧字符串是不会改变的 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String apple = <span class="string">&quot;APPLE&quot;</span>;</span><br><span class="line">apple.toLowerCase();</span><br><span class="line">log.info(apple); <span class="comment">//肯定还是&quot;APPLE&quot;</span></span><br></pre></td></tr></table></figure>
+<p>创建了一个字符串apple, 但是对它调用<code>.toLowerCase()</code>之后, 只会产生一个新字符串, 并不会改变apple本身.</p>
+<p>Uni和Multi也一样, 对这个数据流进行操作之后, 就会产生一个新的Uni或者Multi :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; uni = Uni.createFrom().item(<span class="string">&quot;hello&quot;</span>);<span class="comment">//发生一个事件, 产生的数据流的结果是&quot;hello&quot;字符串</span></span><br><span class="line"></span><br><span class="line">uni.onItem().transform(item -&gt; item + <span class="string">&quot; mutiny&quot;</span>);<span class="comment">//将字符串&quot;hello&quot;变成&quot;hello mutiny&quot;</span></span><br><span class="line">uni.onItem().transform(String::toUpperCase);<span class="comment">//再将字符串全部改成大写</span></span><br><span class="line"></span><br><span class="line">uni.subscribe().with(item -&gt; System.out.println(item));<span class="comment">//打印字符串</span></span><br></pre></td></tr></table></figure>
+<p>这个打印的结果是什么?</p>
+<p>答案就是最开始的<code>"hello"</code>, 因为我们对最开始的事件uni做任何操作, 都只会产生一个新的流, 原本的流是不会被改变的, 如果你没有用一个变量去接着它, 那结果就不会被影响, 所以如果上面的例子想要生效, 可以有两种办法 :</p>
+<ol type="1">
+<li><p>要么你就一直链式调用下去 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; uni = Uni.createFrom().item(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">uni.onItem().transform(item -&gt; item + <span class="string">&quot; mutiny&quot;</span>).onItem().transform(String::toUpperCase).subscribe().with(item -&gt; System.out.println(item));</span><br></pre></td></tr></table></figure></li>
+<li><p>要么你就每次都用变量接着这个流 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; uni = Uni.createFrom()</span><br><span class="line">        .item(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">uni = uni.onItem()</span><br><span class="line">        .transform(item -&gt; item + <span class="string">&quot; mutiny&quot;</span>);</span><br><span class="line">uni = uni.onItem()</span><br><span class="line">        .transform(String::toUpperCase);</span><br><span class="line">uni.subscribe()</span><br><span class="line">        .with(item -&gt; System.out.println(item));</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>继续解释上面的第二点, <strong>对Uni和Multi的操作是惰性的</strong>, 这是什么意思?</p>
+<p><strong>这是指, 你最终必须明确表示对这个结果感兴趣, 明确地订阅了这个数据流, 对数据流的操作才会真正地发生.</strong></p>
+<p>对数据流的各种操作 (即uni后面跟着的带动词的方法), 并不是真正在操作这个数据流, 而是在<strong>铺设操作数据流的流水线</strong> (脑海中想象工厂的流水线), 只有当流水线的最末尾有人订阅了这个数据流, 流水线才会真正地工作, 数据才会真正地在流水线中流动到最终的订阅者手里.</p>
+<p>例如上面这个例子, <code>uni.subscribe().with(item -&gt; System.out.println(item));</code>这一行代码就表明了用户对这个uni感兴趣, 因为你想要打印这个字符串, 所以你订阅这个数据流, <strong>只有当你订阅了这个数据流, 对这个数据流的操作流水线才会工作, 才会真正进行后面的字符串拼接, 字符串转大写等操作.</strong></p>
+<p>如果没有最后的这一行<code>.subscribe()</code>, 就相当于工厂的流水线都铺设好了, 但是根本没有开工, 虽然代码写着产生一个字符串数据流, 并且想要拼接字符串, 然后全部转大写, <strong>但是这一切都不会发生.</strong></p>
+<p>那么有哪些行为可以表达我对这个数据流感兴趣呢?</p>
+<ol type="1">
+<li><p>要么直接在代码里写出来你想要<code>.subscribe()</code>这个流, 这表明你<strong>主动</strong>要订阅这个数据流.</p></li>
+<li><p>要么将这个数据流最终返回到系统外部, 由系统自动帮你订阅这个消息 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Uni&lt;ApiResponse&gt; <span class="title">getString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Uni&lt;String&gt; uni = Uni.createFrom()</span><br><span class="line">            .item(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    uni = uni.onItem()</span><br><span class="line">            .transform(item -&gt; item + <span class="string">&quot; mutiny&quot;</span>);</span><br><span class="line">    uni = uni.onItem()</span><br><span class="line">            .transform(String::toUpperCase);</span><br><span class="line">    <span class="keyword">return</span> uni.chain(ApiResponse::ok);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个接口, 只要程序接收到外部的<strong>get</strong>请求, 调用了这个接口, 就会返回一个Uni出去, 这里你会发现虽然我们没有调用<code>.subscribe()</code>这个方法, 但是因为这里已经是系统的最外层了, 我们把uni通过接口返回出去之后, 系统就会自动帮我们订阅这个数据流.</p></li>
+</ol>
+<p>所以说, 当你发现你的代码不生效的时候, 一定要看看是不是自己忘记订阅了.</p>
+<p>理解了这些最基本的概念, 现在我们可以开始在响应式编程的海洋里自由飞翔了.</p>
+<h2 id="如何创建一个数据流">1.如何创建一个数据流?</h2>
+<p>Mutiny中, 产生一个流会有两个途径 :</p>
+<ol type="1">
+<li><p>你手动创建了一个事件产生了一个数据流.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; appleUni = Uni.createFrom().item(<span class="string">&quot;apple&quot;</span>);</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">List&lt;String&gt; appleList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">appleList.add(<span class="string">&quot;apple1&quot;</span>);</span><br><span class="line">appleList.add(<span class="string">&quot;apple2&quot;</span>);</span><br><span class="line">appleList.add(<span class="string">&quot;apple3&quot;</span>);</span><br><span class="line">Multi&lt;String&gt; appleMulti = Multi.createFrom()</span><br><span class="line">        .iterable(appleList);      </span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;String&gt; appleMulti = Multi.createFrom()</span><br><span class="line">        .items(<span class="string">&quot;apple1&quot;</span>, <span class="string">&quot;apple2&quot;</span>, <span class="string">&quot;apple3&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件. 事件返回一个类型是String的数据流, 注意, 在Mutiny中, <strong>数据流中的数据有一个专有名词, 叫做item</strong>, 在上面的代码中, item就是一个字符串, 内容为<code>"apple"</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; appleUni = Uni.createFrom().failure(<span class="keyword">new</span> Exception(<span class="string">&quot;bad apple&quot;</span>));</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Multi&lt;String&gt; appleMulti = Multi.createFrom().failure(<span class="keyword">new</span> Exception(<span class="string">&quot;some bad apples&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>上面这行代码, 表明本来没有什么事情发生, 但是你手动创建了一个事件产生了一个数据流, 里面装着的item是一个<strong>异常</strong>.</p></li>
+<li><p>你调用某些方法, 例如查找数据库引发了一个事件.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;Apple&gt; appleUni = NotificationRecordEntity.findById(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>这行代码它根据id查找了仓库中id为1的苹果, 事件返回了这个数据流, 里面的item是一个<strong>Apple</strong>类.</p></li>
+</ol>
+<p>当你拿到了一个Uni或者一个Multi, 你就算是正式开始进入响应式编程的世界了.</p>
+<h2 id="如何订阅一个数据流">2.如何订阅一个数据流?</h2>
+<p>上面说到, 当产生一个数据流之后, 你必须表达出你对这个数据流感兴趣, 即你必须消费这个数据流, 对数据流的操作才会发生, 在代码中, 体现为<code>.subscribe().with()</code>方法 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; appleUni = Uni.createFrom().item(<span class="string">&quot;apple&quot;</span>);</span><br><span class="line">appleUni.subscribe().with(log::info);</span><br></pre></td></tr></table></figure>
+<p>上面代码表明, 产生一个数据流后中间没有进行任何操作, 马上就订阅了这个数据流, 然后消费掉了, 消费的行为体现为用<code>log.info()</code>方法打印了<code>"apple"</code>这个item.</p>
+<blockquote>
+<p>学习响应式编程的一个前提是先得把lambda表达式和java8的stream给学明白了, 不会写起码也得懂得怎么看lambda表达式.</p>
+</blockquote>
+<h2 id="如何转换一个数据流中的item">3.如何转换一个数据流中的item?</h2>
+<p>直到现在, 我们都一直在创建一个最简单的字符串Uni, 然后什么操作都没有进行直接就消费掉了, 但是这种行为就好比学习编程的时候打印一句<code>"hello world"</code>, 对于实际开发是没啥意义的, 所以接下来要讲的是, 当我得到一个<strong>Uni&lt;String&gt;</strong>之后, 要怎么对这个Uni的item进行变换呢?</p>
+<p>这时候要使用<code>.onItem().transform()</code>方法 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; checkedAppleUni = appleUni.onItem()</span><br><span class="line">        .transform(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(apple.equals(<span class="string">&quot;apple&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;good apple&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;bad apple&quot;</span>;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p><code>.onItem()</code>表明了你要对item进行操作, 而<code>.transform()</code>表明了你想要对item进行转换.</p>
+<p>当你使用了transform后, 你需要传入一个<code>Function&lt;? super T, ? extends R&gt; mapper</code> 的lambda表达式作为入参, 这个表达式接收一个<strong>T</strong>范型, 并且返回一个你想要的<strong>R</strong>泛型,</p>
+<p>上面的代码表明, 你想要对appleUni内的item进行转换, <strong>如果item等于"apple", 就将它转换成"good apple", 否则就转换为"bad apple".</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;Integer&gt; intUni = appleUni.onItem()</span><br><span class="line">        .transform(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(apple.equals(<span class="string">&quot;apple&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码表明, 你不但可以将原来的item变为其他字符串, 甚至可以变为一个数字, 实际上, <strong>你可以把item转换为你想要的任何一种类型R.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; apples = Multi.createFrom()</span><br><span class="line">        .items(<span class="string">&quot;apple1&quot;</span>, <span class="string">&quot;apple2&quot;</span>, <span class="string">&quot;apple3&quot;</span>);</span><br><span class="line">Multi&lt;String&gt; bananas = apples.onItem()</span><br><span class="line">        .transform(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;banana&quot;</span> + apple.substring(apple.length() - <span class="number">1</span>);</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>对一个Multi内的item进行操作时, 相当于铺设了操作item的流水线, 这时候数据会一个一个通过流水线, 所以数据流中的所有元素都会进行转换, 例如上面的Multi内原本有三个字符串<code>"apple1", "apple2", "apple3"</code>, 当调用<strong>一次</strong>transform之后, 里面的item就变成了<code>"banana1", "banana2", "banana3"</code>了.</p>
+<h2 id="如何在产生一个数据流之后做某些事情">4.如何在产生一个数据流之后做某些事情?</h2>
+<p>一般情况下我们会在触发了一个数据流之后, 继续通过这个数据流的内容去引发另一个事件从而产生其他的数据流, 典型的例子就是通过数据库查到某张表的数据, 再通过这个数据去查找数据库的另一张关联表, 或者再去调用系统的另一个服务等, 在Mutiny中, 大致可以分成几种类型 :</p>
+<ol type="1">
+<li><p>对数据流直接调用某个方法 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni.onItem()</span><br><span class="line">    .invoke(i -&gt; System.out.println(<span class="string">&quot;Received item: &quot;</span> + i));</span><br><span class="line">Multi&lt;String&gt; m = multi.onItem()</span><br><span class="line">    .invoke(i -&gt; System.out.println(<span class="string">&quot;Received item: &quot;</span> + i));</span><br></pre></td></tr></table></figure>
+<p>这个时候可以选择使用<code>.invoke()</code>方法, 这个方法允许你传入一个<code>Consumer&lt;? super T&gt; callback</code>入参, 当item准备就绪的之后就会直接调用<code>.invoke()</code>方法中的<code>Consumer</code>, 如图所示 :</p>
+<p><img src="https://smallrye.io/smallrye-mutiny/assets/images/event-invoke.png" /></p>
+<p>这里需要注意的是,<code>.invoke()</code>方法是同步的! 也就是说<strong>线程会阻塞</strong>在这个位置, 直到内部的方法执行完毕! 按照官方文档, <code>.invoke()</code>方法一般用于打印日志, 个人建议少用这个方法.</p></li>
+<li><p>对数据流的处理触发另一个事件 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multi.onCompletion().call(() -&gt; resource.close());</span><br></pre></td></tr></table></figure>
+<p>当你想要在某个数据流处理完成时触发另一个事件, 例如在上一个事件打开了一个资源, 事件完成了想要关闭资源, 这时候就可以选择使用<code>.call()</code>方法.</p>
+<p><code>.call()</code>方法可以传入一个<strong>Supplier&lt;Uni&lt;?&gt;&gt; supplier或者Function&lt;? super T, Uni&lt;?&gt;&gt; function</strong>作为入参, <code>supplier</code>意味着这个事件不需要上一个数据流的item作为入参, <code>function</code>意味着这个事件需要上一个数据流的item作为入参 (lambda基础内容), 如图所示 :</p>
+<p><img src="https://smallrye.io/smallrye-mutiny/assets/images/event-call.png" /></p>
+<p>但是这里需要注意的时, 和<code>.invoke()</code>不一样的是, <code>.call()</code>是<strong>异步</strong>的, <strong>不会阻塞线程</strong>, 所以在调用了<code>.call()</code>里面的方法后线程可以继续处理后面的事件.</p>
+<p>如果你仔细观察上面这张图, 会发现一个事情, 就是在图的左边, 原本的item内容是<code>1, 2, 3</code>, 但是执行了<code>.call()</code>之后, 右边内容还是<code>1, 2, 3</code>, 这代表什么呢? 这代表了, <code>.call()</code>内部的事件的返回值数据流item不会替代上一个数据流item的内容! 即上游数据流根本不关心<code>.call()</code>内部的事件返回什么, 内部的事件中<strong>只有异常能够传播到外部数据流中</strong>, 也就是说, 如果后续还有事件, 它要么就只能接收到原来的item的<code>1, 2, 3</code>, 要么就只能接收到由<code>.call()</code>传播出来的异常, 至于<code>.call()</code>内部事件正常的返回值, 没人在乎.</p>
+<p>从这里就能看出看出, <code>.call()</code>适合用于哪种场景了, 就是调用了某个方法, 但是不在乎方法的返回值的时候, 例如官方推荐的两个用法就是<strong>关闭资源和刷新数据</strong>. 关闭资源的时候我们只在乎有没有关闭失败, 至于close的时候返回什么对我们来说不重要.</p></li>
+<li><p>对数据流的处理触发另一个事件, 并且需要另一个事件的数据流 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Uni&lt;String&gt; <span class="title">invokeRemoteGreetingService</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">Uni&lt;String&gt; result = uni</span><br><span class="line">    .onItem().transformToUni(name -&gt; invokeRemoteGreetingService(name));</span><br></pre></td></tr></table></figure>
+<p>这个场景是日常使用最多的场景, 就是一个数据流要去触发另一个事件, 并且需要用到另一个事件产生的数据流item, 例如上面的例子, <code>invokeRemoteGreetingService()</code>方法是一个远程调用的函数, 它的item是一个Stirng, 而这个String对我们来说是很有价值的, 这个时候就不能用上面的<code>.call()</code>了, 需要用到<code>.onItem().transformToUni()</code>方法, 如图所示 :</p>
+<p><img src="https://smallrye.io/smallrye-mutiny/assets/images/transform-to-uni.png" /></p>
+<p>可以看到, 和上一张图片不同, 这里的圆圈数据流经过<code>.onItem().transformToUni()</code>流水线处理之后, 就变成了方块流水线了, 也就是说, <code>.onItem().transformToUni()</code>方法中生成的内部事件数据流会取代外部事件数据流.</p>
+<p>官方觉得<code>.onItem().transformToUni()</code>太长了, 所以做了一个简短的方法叫做<code>.chain()</code>, 表示用于链式调用, 两者是等价的 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; result = uni</span><br><span class="line">    .onItem().transformToUni(name -&gt; invokeRemoteGreetingService(name));</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line">Uni&lt;String&gt; result = uni.chain(name -&gt; invokeRemoteGreetingService(name));</span><br></pre></td></tr></table></figure></li>
+<li><p>对Multi流的处理触发其他事件 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; merged = multi</span><br><span class="line">    .onItem().transformToUniAndMerge(name -&gt; invokeRemoteGreetingService(name));</span><br><span class="line"></span><br><span class="line">Multi&lt;String&gt; concat = multi</span><br><span class="line">    .onItem().transformToUniAndConcatenate(name -&gt; invokeRemoteGreetingService(name));</span><br></pre></td></tr></table></figure>
+<p>当我们想要在Multi流里面调用事件时, 事情就没有这么简单了, 在前面的例子中, 都是在一个Uni流中调用其他事件, 但是由于Uni流内只有一个item, 所以并不涉及顺序问题, 但是当我们在Multi中, 就必须考虑另一个场景了, 那就是返回的结果是否要按原数据流顺序返回?</p>
+<p>例如有这么一个Multi, 他的最初items是<code>["a", "b"]</code>, 现在它要调用<code>invokeRemoteGreetingService()</code>这个远程方法, 这个方法接收一个name, 返回一个item为<code>"Hello name"</code>的Uni数据流, 如下所示 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Uni&lt;String&gt; <span class="title">invokeRemoteGreetingService</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>但由于网络原因, 调用这个远程方法返回的时间是不一定的, <strong>有可能后面调用的反而先返回了</strong>, 后续事件读取到的数据流就有可能是<code>["Hello b", "Hello a"]</code>, 因此需要怎么处理数据流取决于你是否需要确保返回结果是有序的, Mutiny为此提供了两种方案 :</p>
+<ul>
+<li><p>merge -- 合并, 它不保留顺序, 并且将产生的结果按照返回的顺序依次传给下游事件.</p></li>
+<li><p>concatenate -- 串联, 它严格要求传给下游事件的结果按照原来的的顺序进行.</p></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; merged = multi</span><br><span class="line">      .onItem().transformToUniAndMerge(name -&gt; invokeRemoteGreetingService(name));</span><br><span class="line"><span class="comment">//结果为可能为[&quot;Hello b&quot;, &quot;Hello a&quot;], 也可能是[&quot;Hello a&quot;, &quot;Hello b&quot;]</span></span><br><span class="line">  </span><br><span class="line">Multi&lt;String&gt; concat = multi</span><br><span class="line">      .onItem().transformToUniAndConcatenate(name -&gt; invokeRemoteGreetingService(name));</span><br><span class="line"><span class="comment">//结果为[&quot;Hello a&quot;, &quot;Hello b&quot;], 维持原本的顺序</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="如何转换uni为multi">5.如何转换Uni为Multi?</h2>
+<p>想要从Uni转换到Multi, 可以使用<code>.onItem().transformToMulti()</code>方法 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; result = uni</span><br><span class="line">    .onItem().transformToMulti(item -&gt; Multi.createFrom().items(item, item));</span><br></pre></td></tr></table></figure>
+<p>该方法需要传入一个<code>Function&lt;? super T, ? extends Publisher&lt;? extends R&gt;&gt; mapper</code>入参, 用于指导程序如何用一个Uni的item去创建一个Multi, 上面的例子表明, 你选择直接用2个item作为入参, 创建1个Multi, 如图所示 :</p>
+<p><img src="https://smallrye.io/smallrye-mutiny/assets/images/uni-transform-to-multi.png" /></p>
+<p>1个圆圈的Uni通过上面的代码编程了2个圆圈的Multi.</p>
+<h2 id="如何处理失败">6.如何处理失败</h2>
+<p>上面的代码都是默认没有失败的, 但是在现实世界里这是不可能呢, 想象程序中所有的代码都没有<code>try-catch</code>做保护会多么的脆弱.</p>
+<p>在Mutiny中, <strong>对于失败的判断必须是程序抛出异常</strong>, 而不能够自定义, 例如不能认为远程调用http请求的时候返回404状态码叫做失败, 除非手动判断如果返回状态码等于404, 就抛出异常.</p>
+<p>Mutiny对于失败的处理有以下几种, 他们都是在<code>.onFailure()</code>方法上进行的 :</p>
+<ul>
+<li>传递到下游事件 (默认的)</li>
+<li>将一个异常转换成另一个异常</li>
+<li>切换到另一个备用item用于覆盖失败</li>
+<li>切换到另一个备用事件用于覆盖失败</li>
+<li>进行重试</li>
+</ul>
+<p>对于第一点, 传递到下游很容易理解, 意思就是如果你不对异常进行处理, 下游事件再用<code>.onItem().transform()</code>等方法拿到的不会是上游数据流的item, 而是一个exception.</p>
+<p>对于第二点, 将一个异常转换成另一个异常也很好理解, 例如将一个普通的<code>IOException</code>异常转换成更加具体的<code>ServiceUnavailableException</code>异常:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().transform(failure -&gt;</span><br><span class="line">                <span class="keyword">new</span> ServiceUnavailableException(failure));</span><br></pre></td></tr></table></figure>
+<p>对于第三点, 通常情况下, 遇到失败了你会想用另一个事件产生的数据流数据来覆盖失败, 例如 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u1 = uni</span><br><span class="line">        .onFailure().recoverWithItem(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">Uni&lt;String&gt; u2 = uni</span><br><span class="line">        .onFailure().recoverWithItem(f -&gt; getFallback(f));</span><br></pre></td></tr></table></figure>
+<p>当uni失败的时候, 既可以直接传一个item进去替换掉失败产生的exception, 也可以传一个<code>Supplier</code>进去提供你想要的item.</p>
+<p>需要注意的是, 如果是数据流Multi, 那么当对数据流中的数据进行操作时引起异常, 然后使用另一个事件产生的数据流item来覆盖失败时, 下游事件会<strong>在收到这个覆盖的item之后收到一个结束流信号</strong>, 而不会继续处理异常之后的item, 例如 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; apples = Multi.createFrom()</span><br><span class="line">        .items(<span class="string">&quot;apple1&quot;</span>, <span class="string">&quot;apple2&quot;</span>, <span class="string">&quot;apple3&quot;</span>);</span><br><span class="line">apples.onItem()</span><br><span class="line">        .transformToUniAndConcatenate(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(apple.equals(<span class="string">&quot;apple2&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                        .failure(<span class="keyword">new</span> Exception(<span class="string">&quot;bad apple&quot;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                    .item(<span class="string">&quot;hello-&quot;</span> + apple);</span><br><span class="line">        &#125;)</span><br><span class="line">        .onFailure()</span><br><span class="line">        .recoverWithItem(<span class="string">&quot;backup apple&quot;</span>)</span><br><span class="line">        .subscribe()</span><br><span class="line">        .with(log::info);</span><br></pre></td></tr></table></figure>
+<p>原本的apples内有<code>"apple1", "apple2", "apple3"</code>这三个item, 后续我对这三个item进行处理, 如果item等于<code>"apple2"</code>, 那就抛出一个异常, 否则返回<code>"hello-" + apple</code>.</p>
+<p>在<code>.onFailure()</code>阶段, 我又对异常进行了处理, <code>如果发现了异常, 就将item替换为一个"backup apple",</code> 这是响应式编程中很常见的处理方式, 那现在问题是, 最终对于这个apples的订阅, 打印日志应该显示什么结果呢?</p>
+<p>答案是, 打印结果为 :</p>
+<blockquote>
+<p>hello-apple1</p>
+<p>backup apple</p>
+</blockquote>
+<p>这是因为当apple2引发一个异常时, 整个数据流就中断了, 我们恢复失败<strong>只是将exception覆盖为指定的<code>"backup apple"</code>, 然后下游事件就接收到了一个完成信号</strong>, 不会继续往下传递<code>hello-apple3</code>了.</p>
+<p>在Multi中, 你也可以在收到异常的时候直接通过<code>.recoverWithCompletion()</code>宣布数据流处理完毕, <strong>此时下游事件不会收到异常信息, 只会接收到异常之前的item</strong> :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; apples = Multi.createFrom()</span><br><span class="line">        .items(<span class="string">&quot;apple1&quot;</span>, <span class="string">&quot;apple2&quot;</span>, <span class="string">&quot;apple3&quot;</span>);</span><br><span class="line">apples.onItem()</span><br><span class="line">        .transformToUniAndConcatenate(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(apple.equals(<span class="string">&quot;apple2&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                        .failure(<span class="keyword">new</span> Exception(<span class="string">&quot;bad apple&quot;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                    .item(<span class="string">&quot;hello-&quot;</span> + apple);</span><br><span class="line">        &#125;)</span><br><span class="line">        .onFailure()</span><br><span class="line">        .recoverWithCompletion()</span><br><span class="line">        .subscribe()</span><br><span class="line">        .with(log::info);</span><br></pre></td></tr></table></figure>
+<p>这里和上面不一样的地方在于, 没有对异常进行覆盖, 而是直接宣布传递一个完成信号, 这时候打印的结果就是 :</p>
+<blockquote>
+<p>hello-apple1</p>
+</blockquote>
+<p>对于第四点, 当我们遇到失败的时候, 也可以直接切换到另一个数据流来覆盖失败, 如下所示 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().recoverWithUni(f -&gt; getFallbackUni(f));</span><br><span class="line"></span><br><span class="line">Multi&lt;String&gt; m = multi</span><br><span class="line">        .onFailure().recoverWithMulti(f -&gt; getFallbackMulti(f));</span><br></pre></td></tr></table></figure>
+<p>对于Multi来说, 使用<code>.recoverWithMulti()</code>会在遇到异常时直接切换到新的Multi, 例如 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Multi&lt;String&gt; apples = Multi.createFrom()</span><br><span class="line">        .items(<span class="string">&quot;apple1&quot;</span>, <span class="string">&quot;apple2&quot;</span>, <span class="string">&quot;apple3&quot;</span>);</span><br><span class="line">apples.onItem()</span><br><span class="line">        .transformToUniAndConcatenate(apple -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(apple.equals(<span class="string">&quot;apple2&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                        .failure(<span class="keyword">new</span> Exception(<span class="string">&quot;bad apple&quot;</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> Uni.createFrom()</span><br><span class="line">                    .item(<span class="string">&quot;hello-&quot;</span> + apple);</span><br><span class="line">        &#125;)</span><br><span class="line">        .onFailure()</span><br><span class="line">        .recoverWithMulti(()-&gt;Multi.createFrom().items(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>))</span><br><span class="line">        .subscribe()</span><br><span class="line">        .with(log::info);</span><br></pre></td></tr></table></figure>
+<p>当检检测到异常时, 我选择直接用一个新的Multi来替换原有的Multi, 所以这时候打印的日志就应该时 :</p>
+<blockquote>
+<p>hello-apple1</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+</blockquote>
+<h2 id="如何进行失败重试">7.如何进行失败重试?</h2>
+<p>有一些失败是基本没有重试的必要的, 例如文件不存在抛出一个IO异常, 那很可能重试多少次都没有意义, 但是有一些失败是有重试价值的, 最典型的例子就是网络请求, 有时候网络波动可能导致失败, 但是很可能过一会儿重试了就成功了.</p>
+<p>Mutiny设计上有一个让我无法理解的地方, 就是重试必须在<code>.onFailure()</code>上进行, <strong>也就是说一定得要发生失败了才能重试</strong>, 但是有很多时候想要重试并不一定是发生了失败, 例如我上面举的例子, 想要在http请求返回状态码为非200的时候进行重试, 这是是一个很常见的场景, 但是Mutiny不支持这样做, 你必须手动抛出一个异常之后才能进行重试, 我当初请问过他们团队为什么不将重试的条件作为可判断的, 他们说这是经过长时间讨论的方案😂.</p>
+<p>想要进行失败重试, 你需要使用 <code>.onFailure().retry()</code>, 对于重试策略, Mutiny提供了很多种不同方案 :</p>
+<ol type="1">
+<li><p>马上重试 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">indefinitelyUni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().retry().indefinitely();</span><br></pre></td></tr></table></figure>
+<p>这个方法会在遇到失败的时候马上重试, 但是注意如果一直失败就会一直重试, 直接死循环, 所以很少使用.</p></li>
+<li><p>指定重试次数 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().retry().atMost(<span class="number">3</span>);</span><br><span class="line">Multi&lt;String&gt; m = multi</span><br><span class="line">        .onFailure().retry().atMost(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p>上述代码表明你<strong>最多</strong>想要立刻重试三次.</p></li>
+<li><p>带延迟的重试 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().retry()</span><br><span class="line">        .withBackOff(Duration.ofMillis(<span class="number">100</span>))</span><br><span class="line">        .atMost(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().retry()</span><br><span class="line">        .withBackOff(Duration.ofMillis(<span class="number">100</span>), Duration.ofSeconds(<span class="number">1</span>))</span><br><span class="line">        .atMost(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p>一般发生错误没必要马上重试, 可以先延迟一下, <code>.withBackOff()</code>方法可以配置延迟多久之后再重试, 可以只传一个延迟参数, 例如100, 此时会延迟100ms之后再重试, <strong>并且每次重试延迟都会翻倍</strong>.</p>
+<p>也可以传两个参数, 一个是初始延迟, 另一个是最大延迟, 此时<strong>每次重试延迟都会翻倍直到最大延迟</strong>.</p></li>
+<li><p>带随机抖动的重试 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; uni = uni</span><br><span class="line">    .onFailure().retry()</span><br><span class="line">        .withBackOff(Duration.ofSeconds(<span class="number">1</span>)).withJitter(<span class="number">0.2</span>).atMost(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>每次增加的延迟都正好翻倍, 可能不够随机性, 所以可以使用<code>.withJitter()</code>方法, 传入一个0到1之间的抖动参数, 越接近1抖动范围越大.</p></li>
+<li><p>带截止时间的重试 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; uni = uni</span><br><span class="line">    .onFailure().retry()</span><br><span class="line">        .withBackOff(Duration.ofSeconds(<span class="number">1</span>)).withJitter(<span class="number">0.2</span>).expireIn(<span class="number">1000L</span>);</span><br></pre></td></tr></table></figure>
+<p>有时候你不一定想写重试次数, 而是写一个<strong>持续时间</strong>或者<strong>截止时间</strong>, 如上所示, <code>.expireIn()</code>接收一个long类型的持续时间, 单位是毫秒, <code>.expireAt()</code>接收一个long类型的截至时间, 表明多久之后结束重试.</p></li>
+<li><p>直到满足判断条件的重试 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Uni&lt;String&gt; u = uni</span><br><span class="line">        .onFailure().retry()</span><br><span class="line">        .until(f -&gt; shouldWeRetry(f));</span><br></pre></td></tr></table></figure>
+<p>有时候你就是想要一直重试到满足条件为止, 这时候你可以使用<code>.until()</code>方法, 传入一个判断条件, 直到判断返回<code>true</code>为止.</p></li>
+</ol>
+<h2 id="学海无涯">学海无涯</h2>
+<p>到这里, Mutiny的入门教程就结束了, 不知道有多少人能看到这一篇教程, 但是我相信只要是认真看完了肯定能学会响应式编程入门, 那么接下来要干什么呢?</p>
+<ol type="1">
+<li>如果我哪里讲得不明白, 可以直接发送邮件向我进行询问.</li>
+<li>继续去<a target="_blank" rel="noopener" href="https://smallrye.io/smallrye-mutiny/guides">Mutiny官方指南</a>学习高阶知识.</li>
+<li>继续去<a target="_blank" rel="noopener" href="https://quarkus.io/guides/">quarkus官方指南</a>学习quarkus开发知识.</li>
+<li>我的一个<a target="_blank" rel="noopener" href="https://github.com/jiayaoO3O/18-comic-finder">爬虫项目</a>用到了响应式编程, 可以去看一下真正的项目是怎么使用响应式进行开发的.</li>
+<li>和我一起翻译quarkus官方指南 : <a target="_blank" rel="noopener" href="https://github.com/jiayaoO3O/quarkus-guides-translation">quarkus-guides-translation</a></li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/22891632/114197582-152e7b80-9985-11eb-9e15-5aa7ea62933c.gif" /></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="jiayao 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="jiayao 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>jiayao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://jiayaoo3o.github.io/2021/07/25/Mutiny%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" title="Mutiny入门教程">http://jiayaoo3o.github.io/2021/07/25/Mutiny入门教程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Quarkus/" rel="tag"><i class="fa fa-tag"></i> Quarkus</a>
+              <a href="/tags/Mutiny/" rel="tag"><i class="fa fa-tag"></i> Mutiny</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/29/Ubuntu%E9%85%8D%E7%BD%AEsamba/" rel="prev" title="Ubuntu配置samba">
+                  <i class="fa fa-chevron-left"></i> Ubuntu配置samba
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiayao</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
